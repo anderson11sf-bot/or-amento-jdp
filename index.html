@@ -3,85 +3,257 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b5d32">
+<meta name="theme-color" content="#0b120d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Jardim Padrão — App de Orçamentos</title>
+<title>Jardim Padrão — App Profissional de Orçamentos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230b5d32'/%3E%3Cpath d='M30 78c0-22 14-31 28-34-12 6-20 14-22 30 8-10 18-14 34-18 4-14 2-22-2-30C46 24 30 34 28 56c0 10 0 16 2 22z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#0e1611;--card:#17221b;--tx:#e6f0e9;--mut:#9bb0a2;--br:#2b3b31;--g:#3fa56b;--gt:#06170d;--g2:#1c3125;--gold:#c9a84c;--red:#ff8a80;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-:root[data-theme=light]{--bg:#f3f7f4;--card:#fff;--tx:#14231a;--mut:#5d6f63;--br:#d6e1d9;--g:#0b5d32;--gt:#fff;--g2:#e1f0e6;--gold:#9a7b2c;--red:#b3261e;color-scheme:light}
+:root{
+  --bg:#09100b;
+  --card:#121c15;
+  --card2:#18261c;
+  --tx:#f0ede8;
+  --mut:#92a496;
+  --br:#233829;
+  --g:#3fa56b;
+  --g-dark:#1b5433;
+  --gt:#fff;
+  --g2:#192e20;
+  --gold:#c9a84c;
+  --gold-bg:rgba(201,168,76,0.12);
+  --red:#ff7b72;
+  --red-bg:rgba(255,123,114,0.12);
+  color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme=light]{
+  --bg:#f3f7f4;
+  --card:#ffffff;
+  --card2:#eaf2ec;
+  --tx:#14231a;
+  --mut:#54695b;
+  --br:#d0ded4;
+  --g:#0b5d32;
+  --g-dark:#074022;
+  --gt:#ffffff;
+  --g2:#e1f0e6;
+  --gold:#94721d;
+  --gold-bg:rgba(148,114,29,0.1);
+  --red:#b3261e;
+  --red-bg:rgba(179,38,30,0.1);
+  color-scheme:light;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:85px;min-height:100vh}
-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:linear-gradient(135deg,#07381e,#0b5d32);color:#fff;border-bottom:1px solid rgba(255,255,255,.1);position:sticky;top:0;z-index:10}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--tx);
+  font:15px/1.5 'Inter',system-ui,sans-serif;
+  padding-bottom:88px;
+  min-height:100vh;
+}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 18px;
+  background:linear-gradient(135deg,#072b17,#0f4526);
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
 .brand{display:flex;align-items:center;gap:12px}
-.brand img,.brand svg{width:36px;height:36px;border-radius:50%;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.brand h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.3px}
-.brand small{display:block;font-size:11px;opacity:.8;font-weight:400}
-.theme-btn{background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:20px;padding:6px 12px;font-size:12px;cursor:pointer}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--br);padding-bottom:env(safe-area-inset-bottom,0px);z-index:25;box-shadow:0 -4px 16px rgba(0,0,0,.25)}
-nav button{flex:1;padding:12px 4px;border:0;background:none;color:var(--mut);font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:color .2s}
+.brand svg,.brand img{width:36px;height:36px;border-radius:50%}
+.brand h1{font-family:'Playfair Display',serif;font-size:17px;margin:0;font-weight:700;letter-spacing:.3px}
+.brand small{display:block;font-size:11px;opacity:.8;font-family:'Inter',sans-serif;font-weight:400}
+.theme-toggle{background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer}
+nav{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  display:flex;
+  background:var(--card);
+  border-top:1px solid var(--br);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  z-index:30;
+  box-shadow:0 -4px 20px rgba(0,0,0,.3);
+}
+nav button{
+  flex:1;
+  padding:11px 4px;
+  border:0;
+  background:none;
+  color:var(--mut);
+  font:inherit;
+  font-size:11px;
+  font-weight:600;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  cursor:pointer;
+  transition:all .2s;
+}
 nav button.on{color:var(--g)}
-nav button span.icon{font-size:17px}
-main{padding:14px;max-width:780px;margin:auto}
-.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-h2{font-size:17px;margin:0 0 10px;color:var(--g);display:flex;align-items:center;gap:8px}
-h3{font-size:14px;margin:12px 0 6px;color:var(--gold)}
-label{display:block;font-size:12px;color:var(--mut);margin:10px 0 3px;font-weight:600}
-input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:14px;transition:border-color .2s}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+nav button span.icon{font-size:18px}
+main{padding:14px;max-width:820px;margin:auto}
+.card{
+  background:var(--card);
+  border:1px solid var(--br);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
+}
+h2{font-family:'Playfair Display',serif;font-size:18px;margin:0 0 10px;color:var(--g);display:flex;align-items:center;gap:8px}
+h3{font-size:14px;margin:14px 0 6px;color:var(--gold);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weight:600}
+input,select,textarea{
+  width:100%;
+  padding:11px 13px;
+  border:1px solid var(--br);
+  border-radius:10px;
+  background:var(--bg);
+  color:var(--tx);
+  font:inherit;
+  font-size:14px;
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 2px rgba(63,165,107,0.15)}
 .r{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-@media(max-width:480px){.r3{grid-template-columns:1fr}}
-button.b{padding:11px 16px;border:0;border-radius:10px;background:var(--g);color:var(--gt);font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:opacity .2s}
-button.b:active{opacity:.85}
-button.s{background:var(--g2);color:var(--g)}
+@media(max-width:560px){.r3{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.r{grid-template-columns:1fr}}
+button.b{
+  padding:12px 18px;
+  border:0;
+  border-radius:10px;
+  background:var(--g);
+  color:var(--gt);
+  font:inherit;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:all .2s;
+}
+button.b:hover{opacity:.95;transform:translateY(-1px)}
+button.b:active{transform:translateY(0)}
+button.s{background:var(--g2);color:var(--g);border:1px solid var(--br)}
 button.d{background:none;color:var(--red);border:1px solid var(--red)}
-button.sm{padding:7px 11px;font-size:12px;border-radius:8px}
+button.sm{padding:7px 12px;font-size:12px;border-radius:8px}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
 .mut{color:var(--mut);font-size:13px}
-.item{border-top:1px dashed var(--br);padding-top:12px;margin-top:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}
-.tile{position:relative;padding:12px 6px;border:2px solid var(--br);border-radius:14px;background:var(--bg);color:var(--tx);font-size:12px;text-align:center;cursor:pointer;transition:all .2s}
-.tile i{display:block;font-style:normal;font-size:28px;line-height:1.2;margin-bottom:4px}
-.tile.on{border-color:var(--g);background:var(--g2)}
-.tile.op{box-shadow:0 0 0 2px var(--gold)}
-.tile u{position:absolute;top:4px;right:6px;text-decoration:none;background:var(--g);color:var(--gt);border-radius:10px;padding:1px 6px;font-size:10px;font-weight:700}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.chip{padding:8px 14px;border:1.5px solid var(--br);border-radius:20px;background:var(--bg);color:var(--tx);font-size:13px;cursor:pointer}
-.chip.on{border-color:var(--g);background:var(--g);color:var(--gt);font-weight:700}
-.tot{background:var(--g2);border-radius:12px;padding:12px 14px;margin-top:12px}
-.tot div{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
-.tot .big{font-size:19px;font-weight:800;color:var(--g);border-top:1px dashed var(--br);margin-top:6px;padding-top:6px}
-.warn{color:var(--red);font-weight:700}
-.fotos{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
-.fotos div{min-width:130px;position:relative}
-.fotos img{width:130px;height:95px;object-fit:cover;border-radius:8px;border:1px solid var(--br)}
-.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.kpi-card{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:12px;text-align:center}
-.kpi-card small{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-.kpi-card b{display:block;font-size:20px;color:var(--g);margin-top:4px}
-#toast{position:fixed;top:65px;right:16px;background:var(--g);color:var(--gt);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;transition:opacity .3s;pointer-events:none}
-#toast.show{opacity:1}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.tag-gold{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
+.tag-green{background:var(--g2);color:var(--g);border:1px solid rgba(63,165,107,.3)}
+
+/* SELETOR VISUAL DE SERVIÇOS */
+.visual-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+  margin:12px 0;
+}
+.visual-card{
+  background:var(--card2);
+  border:2px solid var(--br);
+  border-radius:14px;
+  padding:14px 8px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  position:relative;
+}
+.visual-card:hover{border-color:var(--g);transform:translateY(-2px)}
+.visual-card.active{border-color:var(--g);background:var(--g2);box-shadow:0 4px 14px rgba(63,165,107,.25)}
+.visual-card span.v-icon{display:block;font-size:32px;line-height:1;margin-bottom:6px}
+.visual-card b{display:block;font-size:13px;color:var(--tx)}
+.visual-card small{display:block;font-size:11px;color:var(--mut);margin-top:2px}
+.visual-modal{
+  background:var(--bg);
+  border:1px solid var(--br);
+  border-radius:14px;
+  padding:16px;
+  margin:12px 0;
+  animation:fade .25s ease;
+}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ITENS DO ORÇAMENTO */
+.item-box{
+  background:var(--card2);
+  border:1px solid var(--br);
+  border-radius:12px;
+  padding:14px;
+  margin-top:10px;
+}
+
+/* PAINEL FINANCEIRO DE ALTA PRECISÃO */
+.fin-board{
+  background:linear-gradient(145deg,var(--card2),var(--card));
+  border:1.5px solid var(--br);
+  border-radius:14px;
+  padding:16px;
+  margin-top:14px;
+}
+.fin-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:6px 0;
+  font-size:14px;
+  border-bottom:1px dashed var(--br);
+}
+.fin-row:last-child{border-bottom:0}
+.fin-row.highlight{
+  font-size:18px;
+  font-weight:800;
+  color:var(--g);
+  padding:10px 0 4px;
+  border-top:1.5px solid var(--br);
+  border-bottom:0;
+  margin-top:6px;
+}
+.fin-badge{
+  font-size:12px;
+  padding:3px 8px;
+  border-radius:6px;
+  font-weight:700;
+}
+.badge-good{background:var(--g2);color:var(--g)}
+.badge-warn{background:var(--red-bg);color:var(--red)}
+
+/* DOCUMENTO DE IMPRESSÃO / PDF */
 #doc{position:fixed;inset:0;background:#fff;color:#111;overflow:auto;z-index:100;padding:0 0 50px;display:none}
-#doc .bar{position:sticky;top:0;background:#0b5d32;padding:10px 16px;display:flex;gap:10px;padding-top:calc(10px + env(safe-area-inset-top,0px));box-shadow:0 2px 8px rgba(0,0,0,.2)}
-#doc .pg{max-width:780px;margin:auto;padding:24px;font:13px/1.5 system-ui,sans-serif;color:#111}
+#doc .bar{position:sticky;top:0;background:#0b5d32;padding:12px 18px;display:flex;gap:10px;padding-top:calc(12px + env(safe-area-inset-top,0px));box-shadow:0 2px 10px rgba(0,0,0,.2)}
+#doc .pg{max-width:780px;margin:auto;padding:26px;font:13px/1.55 system-ui,sans-serif;color:#111}
 #doc h1{font-size:22px;color:#0b5d32;margin:0}
-#doc h3{color:#0b5d32;border-bottom:2px solid #0b5d32;padding-bottom:4px;margin:20px 0 8px}
-#doc table{width:100%;border-collapse:collapse;margin:10px 0}
-#doc td,#doc th{padding:8px 6px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}
+#doc h3{color:#0b5d32;border-bottom:2px solid #0b5d32;padding-bottom:4px;margin:22px 0 8px}
+#doc table{width:100%;border-collapse:collapse;margin:12px 0}
+#doc td,#doc th{padding:8px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}
 #doc .n{text-align:right;white-space:nowrap}
-#doc .hd{display:flex;align-items:center;gap:14px;border-bottom:3px solid #0b5d32;padding-bottom:12px}
-#doc .hd img,#doc .hd svg{width:64px;height:64px;border-radius:50%;object-fit:cover}
-#doc .ph{display:inline-block;width:32%;margin:0 1% 8px 0;vertical-align:top;font-size:11px;break-inside:avoid}
-#doc .ph img{width:100%;height:120px;object-fit:cover;border-radius:4px}
-#doc .tt{font-size:18px;font-weight:800;text-align:right;margin-top:14px;color:#0b5d32}
+#doc .hd{display:flex;align-items:center;gap:14px;border-bottom:3px solid #0b5d32;padding-bottom:14px}
+#doc .hd svg,#doc .hd img{width:64px;height:64px;border-radius:50%}
+#doc .tt{font-size:20px;font-weight:800;text-align:right;margin-top:16px;color:#0b5d32}
 @media print{
   #app{display:none!important}
   #doc{position:static;display:block!important;overflow:visible;background:#fff;color:#000}
   #doc .bar{display:none}
   #doc .pg{padding:0}
 }
+#toast{position:fixed;top:65px;right:16px;background:var(--g);color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;z-index:99;box-shadow:0 4px 14px rgba(0,0,0,.35);opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.show{opacity:1}
 </style>
 </head>
 <body>
@@ -92,307 +264,950 @@ button.sm{padding:7px 11px;font-size:12px;border-radius:8px}
   <nav id="nv"></nav>
 </div>
 <div id="doc"></div>
+
 <script>
 const LOGO='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#0b5d32"/><path d="M30 78c0-22 14-31 28-34-12 6-20 14-22 30 8-10 18-14 34-18 4-14 2-22-2-30C46 24 30 34 28 56c0 10 0 16 2 22z" fill="#fff"/></svg>';
-const UN=['serv','m²','m','un','h','dia','kg','lote'];
-const SV=[
-  {id:'grama',ic:'🌿',nome:'Grama',un:'m²',perda:5,v:[['Esmeralda',23.33,38],['São Carlos',25,40],['Santo Agostinho',26,42],['Batatais',18.2,32],['Bermuda',24,38]]},
-  {id:'parv',ic:'🌳',nome:'Poda de Árvore',un:'un',v:[['Pequena',250,500],['Média',450,850],['Grande',900,1600]]},
-  {id:'parb',ic:'✂️',nome:'Poda de arbusto / cerca-viva',un:'serv',v:[['Pequeno',160,250],['Médio',250,400],['Grande',400,650]]},
-  {id:'plan',ic:'🌱',nome:'Plantas e mudas',un:'un',v:[['Muda pequena',0,0],['Muda média',0,0],['Arbusto / vaso grande',0,0],['Árvore',0,0]]},
-  {id:'adub',ic:'🧪',nome:'Adubação',un:'m²',v:[['Orgânica',7.52,12],['Mineral',7.52,12]]},
-  {id:'corte',ic:'🌾',nome:'Corte de grama',un:'serv',v:[['Pequeno',120,200],['Médio',180,350],['Grande',350,700]]},
-  {id:'limp',ic:'🧹',nome:'Limpeza de terreno',un:'serv',v:[['Leve',250,400],['Média',300,500],['Pesada',450,900]]},
-  {id:'prep',ic:'🚜',nome:'Preparo do terreno',un:'m²',v:[['Nivelamento',6,10],['Terra vegetal',15,28]]},
-  {id:'irri',ic:'💧',nome:'Irrigação',un:'m²',v:[['Aspersão',45,75],['Gotejamento',40,65]]},
-  {id:'pais',ic:'🌸',nome:'Paisagismo',un:'serv',v:[['Projeto',0,0],['Implantação',0,0]]},
-  {id:'manu',ic:'🔄',nome:'Manutenção periódica',un:'serv',v:[['Pontual',120,240],['Quinzenal',100,180],['Mensal',150,300]]},
-  {id:'outro',ic:'⚙️',nome:'Outro serviço',un:'serv',v:[]}
+const UN=['m²','un','m linear','m³','serv','diária','mês','kg'];
+
+/* BASE DE DADOS REAL — MERCADO VALE DO PARAÍBA & SP ALTO PADRÃO (2026) */
+const CATALOGO=[
+  {
+    id:'grama',
+    nome:'Plantio de Grama',
+    ic:'🌿',
+    desc:'Fornecimento de tapetes/placas, frete e plantio alinhado',
+    un:'m²',
+    perda:5,
+    opcoes:[
+      {n:'Grama Esmeralda (Sol Pleno - Padrão)', custo:6.50, venda:18.00},
+      {n:'Grama São Carlos (Meia Sombra)', custo:9.50, venda:26.00},
+      {n:'Grama Santo Agostinho (Sombra / Litoral)', custo:11.00, venda:32.00},
+      {n:'Grama Batatais (Pastagem / Taludes)', custo:5.50, venda:15.00},
+      {n:'Grama Bermuda (Campos / Áreas de Pisoteio)', custo:10.50, venda:28.00}
+    ]
+  },
+  {
+    id:'preparo',
+    nome:'Preparo do Solo',
+    ic:'🚜',
+    desc:'Corte de perfil, destorroamento, nivelamento e terra vegetal',
+    un:'m²',
+    perda:0,
+    opcoes:[
+      {n:'Nivelamento e Rastreamento Manual', custo:3.00, venda:9.00},
+      {n:'Aplicação de Terra Vegetal Adubada (camada 3cm)', custo:7.50, venda:18.00},
+      {n:'Correção de Solo (Calcário + NPK Base)', custo:2.50, venda:7.00},
+      {n:'Terra Vegetal em Caminhão Fechado (m³ espalhado)', custo:85.00, venda:190.00}
+    ]
+  },
+  {
+    id:'poda',
+    nome:'Poda de Árvores',
+    ic:'🌳',
+    desc:'Poda de formação, limpeza, levantamento de copa ou supressão',
+    un:'un',
+    perda:0,
+    opcoes:[
+      {n:'Poda Leve / Pequeno Porte (até 3 metros)', custo:60.00, venda:160.00},
+      {n:'Poda Média / Copa Elevada (3 a 6 metros)', custo:140.00, venda:380.00},
+      {n:'Poda Alta / Próxima a Telhados / Rede Elétrica', custo:350.00, venda:850.00},
+      {n:'Supressão Completa + Destocamento (Grande Porte)', custo:600.00, venda:1500.00}
+    ]
+  },
+  {
+    id:'cerca',
+    nome:'Cerca-Viva & Arbustos',
+    ic:'✂️',
+    desc:'Poda e alinhamento geométrico de cercas-vivas e topiarias',
+    un:'m linear',
+    perda:0,
+    opcoes:[
+      {n:'Poda de Cerca-Viva (até 2m altura - metro linear)', custo:5.00, venda:16.00},
+      {n:'Poda de Cerca-Viva Alta (acima de 2m)', custo:9.00, venda:26.00},
+      {n:'Plantio de Cerca-Viva Sansão do Campo / Pingo de Ouro', custo:18.00, venda:48.00}
+    ]
+  },
+  {
+    id:'limpeza',
+    nome:'Roçada & Limpeza',
+    ic:'🌾',
+    desc:'Roçagem com fio de nylon/lâmina, rastelamento e ensacamento',
+    un:'m²',
+    perda:0,
+    opcoes:[
+      {n:'Roçada de Gramado / Capim Baixo (<30cm)', custo:0.45, venda:1.40},
+      {n:'Roçada de Mato Alto / Terreno Baldio', custo:0.90, venda:2.80},
+      {n:'Limpeza Completa com Ensacamento de Resíduos', custo:1.60, venda:4.50}
+    ]
+  },
+  {
+    id:'irrigacao',
+    nome:'Irrigação Automatizada',
+    ic:'💧',
+    desc:'Sistemas de aspersão escamoteável ou gotejamento programado',
+    un:'m²',
+    perda:5,
+    opcoes:[
+      {n:'Aspersão Escamoteável para Gramados (Hunter/RainBird)', custo:15.00, venda:38.00},
+      {n:'Gotejamento Subterrâneo para Canteiros (m linear)', custo:16.00, venda:45.00},
+      {n:'Controlador Inteligente WiFi + Sensor de Chuva (un)', custo:650.00, venda:1350.00}
+    ]
+  },
+  {
+    id:'adubacao',
+    nome:'Nutrição & Fitossanidade',
+    ic:'🧪',
+    desc:'Adubação foliar, NPK granulado e controle de pragas/formigas',
+    un:'m²',
+    perda:0,
+    opcoes:[
+      {n:'Adubação Química Equilibrada NPK 10-10-10', custo:2.50, venda:7.00},
+      {n:'Adubação Orgânica + Torta de Mamona e Farinha de Osso', custo:3.80, venda:9.50},
+      {n:'Aplicação de Inseticida / Combate a Cochonilha e Pulgão', custo:90.00, venda:260.00}
+    ]
+  },
+  {
+    id:'manutencao',
+    nome:'Contrato Recorrente',
+    ic:'🔄',
+    desc:'Manutenção mensal programada com cronograma e equipe fixa',
+    un:'mês',
+    perda:0,
+    opcoes:[
+      {n:'Residencial Pequeno (Quinzenal - até 150m² verde)', custo:180.00, venda:480.00},
+      {n:'Residencial Médio (Semanal - 150 a 400m² verde)', custo:380.00, venda:950.00},
+      {n:'Alto Padrão / Chácara VIP (Semanal - 400 a 1000m²)', custo:750.00, venda:1900.00},
+      {n:'Condomínio / Área Comercial (Visitas Semanais Dedicadas)', custo:1400.00, venda:3400.00}
+    ]
+  },
+  {
+    id:'paisagismo',
+    nome:'Paisagismo & Canteiros',
+    ic:'🌸',
+    desc:'Montagem de canteiros, pedras decorativas e forrações nobres',
+    un:'m²',
+    perda:0,
+    opcoes:[
+      {n:'Canteiro com Seixo Branco / Argila Expandida + Manta', custo:32.00, venda:75.00},
+      {n:'Canteiro com Casca de Pinus Polida + Forrações', custo:22.00, venda:55.00},
+      {n:'Implantação Completa de Jardim Decorativo com Mudas Nobres', custo:65.00, venda:160.00}
+    ]
+  }
 ];
-const CFG={
+
+const CONFIG_BASE={
   empresa:'Jardim Padrão',
-  logo:'',
   tel:'(12) 98228-4727',
   email:'contato@jardimpadrao.com.br',
   base:'Bosque do Malacados, Condomínio Recreio, Jacareí - SP',
-  baseLink:'',
-  kmL:10,
-  gas:6.2,
-  fator:1.3,
-  mmin:25,
-  valid:15,
-  pagto:'50% na aprovação e 50% na conclusão do serviço.',
-  prazo:'A combinar após a aprovação.',
-  excl:'Retirada de resíduos volumosos e serviços não descritos nesta proposta.'
+  kmL:9.5,
+  gas:6.20,
+  diariaJardineiro:220,
+  diariaAjudante:140,
+  margemAlvo:35,
+  margemMinima:25,
+  aliquotaImposto:6.0,
+  validadeDias:15,
+  pagto:'50% no início dos trabalhos e 50% na aprovação final da entrega.',
+  prazo:'A definir em cronograma técnico após confirmação da data.',
+  excl:'Retirada de entulho não originado na obra e reparos em alvenaria pré-existente.'
 };
 
-let st={v:2,cfg:{...CFG},cat:JSON.parse(JSON.stringify(SV)),bud:[],seq:1};
-let view='home',cur=null,op=null,delId=null;
+let db={
+  seq:1,
+  cfg:{...CONFIG_BASE},
+  cat:JSON.parse(JSON.stringify(CATALOGO)),
+  orcamentos:[]
+};
+
+let view='edit';
+let curOrc=null;
+let visualAtivo=null;
+let delConfirmId=null;
 
 const $=s=>document.querySelector(s);
 const R=v=>(+v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const N=v=>+v||0;
 const E=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-function idb(){
-  return new Promise((r,j)=>{
-    const q=indexedDB.open('jp_orcamentos_v2',1);
-    q.onupgradeneeded=()=>q.result.createObjectStore('kv');
-    q.onsuccess=()=>r(q.result);
-    q.onerror=()=>j(q.error);
+function initIdb(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open('jardim_padrao_pro_v3',1);
+    req.onupgradeneeded=()=>req.result.createObjectStore('data');
+    req.onsuccess=()=>res(req.result);
+    req.onerror=()=>rej(req.error);
   });
 }
 
-async function load(){
+async function loadData(){
   try{
-    const d=await idb();
+    const idb=await initIdb();
     return await new Promise(r=>{
-      const q=d.transaction('kv').objectStore('kv').get('st');
+      const q=idb.transaction('data').objectStore('data').get('main');
       q.onsuccess=()=>r(q.result);
       q.onerror=()=>r(null);
     });
   }catch(e){return null}
 }
 
-let tm;
+let saveTimer;
 function toast(msg){
   const t=$('#toast');
   if(!t)return;
   t.textContent=msg||'Salvo ✓';
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),1800);
+  setTimeout(()=>t.classList.remove('show'),1600);
 }
 
-function save(){
-  clearTimeout(tm);
-  tm=setTimeout(async()=>{
+function saveData(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
     try{
-      const d=await idb();
-      d.transaction('kv','readwrite').objectStore('kv').put(JSON.parse(JSON.stringify(st)),'st');
+      const idb=await initIdb();
+      idb.transaction('data','readwrite').objectStore('data').put(JSON.parse(JSON.stringify(db)),'main');
       toast();
     }catch(e){}
-  },350);
+  },300);
 }
 
-const logo=()=>st.cfg.logo?`<img src="${st.cfg.logo}">`:LOGO;
-
-function coords(u){
-  u=String(u||'');
-  try{u=decodeURIComponent(u)}catch(e){}
-  const m=u.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/)||u.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)||u.match(/[?&](?:q|ll|query|destination)=(-?\d+\.\d+),\s*(-?\d+\.\d+)/)||u.match(/^\s*(-?\d+\.\d+),\s*(-?\d+\.\d+)\s*$/);
-  return m?[+m[1],+m[2]]:null;
-}
-
-function hav(a,b){
-  const r=x=>x*Math.PI/180,h=Math.sin(r(b[0]-a[0])/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(r(b[1]-a[1])/2)**2;
-  return 12742*Math.asin(Math.sqrt(h));
-}
-
-function kmInfo(b){
-  if(N(b.des.kmM)>0)return{km:N(b.des.kmM),src:'km informado manual'};
-  const a=coords(st.cfg.baseLink),c=coords(b.des.link);
-  if(a&&c)return{km:hav(a,c)*N(st.cfg.fator),src:'estimado (linha reta x '+N(st.cfg.fator)+')'};
-  return{km:0,src:'sem coordenadas — cole o link do Maps ou digite o km'};
-}
-
-function calc(b){
-  const f=b.fin,cfg=st.cfg;
-  let custoI=0,vendaI=0;
-  b.itens.forEach(i=>{
-    custoI+=N(i.qtd)*(1+N(i.perda)/100)*N(i.custo);
-    vendaI+=N(i.qtd)*N(i.preco);
-  });
-  const ki=kmInfo(b);
-  const comb=ki.km*2*N(b.des.viagens)/(N(cfg.kmL)||1)*N(cfg.gas);
-  const extra=N(b.des.extra);
-  const dcost=comb+extra;
-  const rep=b.des.rep==='total'?dcost:b.des.rep==='parcial'?dcost*N(b.des.pct)/100:0;
-  const bruto=vendaI+rep;
-  const desc=bruto*N(f.desc)/100;
-  let venda=bruto-desc;
-  const custo=custoI+dcost;
-  const imp=venda*N(f.imp)/100;
-  const res=venda-custo-imp;
-  const marg=venda?res/venda*100:0;
-  const m=N(f.alvo),i=N(f.imp);
-  const sug=f.metodo==='margem'?(1-m/100-i/100>0?custo/(1-m/100-i/100):0):custo*(1+m/100)/(1-i/100);
-  const fat=vendaI?(venda-rep)/vendaI:1;
-  return{custoI,vendaI,comb,extra,dcost,rep,bruto,desc,venda,custo,imp,res,marg,sug,fat,ki,min:marg<N(cfg.mmin)};
-}
-
-function novo(){
-  return{
-    id:'b'+Date.now(),
-    num:'JP-'+new Date().getFullYear()+'-'+String(st.seq).padStart(3,'0'),
+function novoOrcamento(){
+  return {
+    id:'jp_'+Date.now(),
+    num:'JP-'+new Date().getFullYear()+'-'+String(db.seq).padStart(3,'0'),
     status:'rascunho',
     data:new Date().toISOString().slice(0,10),
-    cli:{nome:'',tel:'',email:''},
-    end:'',
-    proj:'',
-    fotos:[],
+    cliente:{nome:'',tel:'',email:''},
+    local:'',
     itens:[],
-    des:{link:'',kmM:'',viagens:1,extra:0,rep:'total',pct:50},
-    fin:{metodo:'margem',alvo:30,desc:0,imp:0,final:''},
-    apres:'itemized',
+    logistica:{
+      distanciaKm:0,
+      viagens:1,
+      diasObra:1,
+      numJardineiros:1,
+      numAjudantes:1,
+      custoExtra:0,
+      repasse:'total' /* total, embutido, nenhum */
+    },
+    financeiro:{
+      descontoPct:0,
+      impostoPct:db.cfg.aliquotaImposto||6
+    },
     obs:''
   };
 }
 
-function nav(v){view=v;draw()}
+/* MOTOR FINANCEIRO PROFISSIONAL DE ALTA PRECISÃO */
+function calcularFinanceiro(orc){
+  const cfg=db.cfg;
+  const l=orc.logistica;
+  const f=orc.financeiro;
+
+  // 1. Custos e Vendas dos Itens
+  let custoMateriais=0;
+  let vendaItens=0;
+  orc.itens.forEach(it=>{
+    const qtd=N(it.qtd);
+    const perda=1 + (N(it.perda)/100);
+    custoMateriais += qtd * perda * N(it.custo);
+    vendaItens += qtd * N(it.preco);
+  });
+
+  // 2. Mão de Obra
+  const dias=Math.max(1, N(l.diasObra)||1);
+  const custoMaoObra = dias * (
+    (N(l.numJardineiros)||0) * N(cfg.diariaJardineiro) +
+    (N(l.numAjudantes)||0) * N(cfg.diariaAjudante)
+  );
+
+  // 3. Combustível e Logística
+  const kmIda=N(l.distanciaKm);
+  const totalKm = kmIda * 2 * (N(l.viagens)||1);
+  const consumo=Math.max(1, N(cfg.kmL)||9.5);
+  const custoCombustivel = (totalKm / consumo) * N(cfg.gas);
+  const custoLogistica = custoCombustivel + N(l.custoExtra);
+
+  // 4. Repasse de Deslocamento
+  let deslocamentoCobrado=0;
+  if(l.repasse==='total') deslocamentoCobrado = custoLogistica;
+  else if(l.repasse==='embutido') deslocamentoCobrado = 0; // embutido na margem
+
+  // 5. Custo Total da Obra
+  const custoTotal = custoMateriais + custoMaoObra + custoLogistica;
+
+  // 6. Preço Bruto e Desconto
+  const precoBruto = vendaItens + deslocamentoCobrado;
+  const valorDesconto = precoBruto * (N(f.descontoPct)/100);
+  const precoFinalCliente = Math.max(0, precoBruto - valorDesconto);
+
+  // 7. Imposto e Lucro Líquido
+  const valorImposto = precoFinalCliente * (N(f.impostoPct)/100);
+  const lucroLiquidoReal = precoFinalCliente - custoTotal - valorImposto;
+  const margemLiquidaReal = precoFinalCliente > 0 ? (lucroLiquidoReal / precoFinalCliente) * 100 : 0;
+
+  // 8. Preço Sugerido pela Margem Alvo
+  const mAlvo = N(cfg.margemAlvo) / 100;
+  const mImp = N(f.impostoPct) / 100;
+  const divisor = 1 - mAlvo - mImp;
+  const precoSugeridoIdeal = divisor > 0 ? (custoTotal / divisor) : custoTotal * 1.5;
+
+  return {
+    custoMateriais,
+    custoMaoObra,
+    custoCombustivel,
+    custoLogistica,
+    custoTotal,
+    deslocamentoCobrado,
+    precoBruto,
+    valorDesconto,
+    precoFinalCliente,
+    valorImposto,
+    lucroLiquidoReal,
+    margemLiquidaReal,
+    precoSugeridoIdeal,
+    abaixoMinimo: margemLiquidaReal < N(cfg.margemMinima)
+  };
+}
+
+function nav(v){
+  view=v;
+  draw();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function toggleTheme(){
   const cur=document.documentElement.getAttribute('data-theme');
   const next=cur==='light'?'dark':'light';
   document.documentElement.setAttribute('data-theme',next);
-  localStorage.setItem('jp_theme',next);
+  localStorage.setItem('jp_pro_theme',next);
+  draw();
 }
 
 function draw(){
-  const th=localStorage.getItem('jp_theme')||'dark';
+  const th=localStorage.getItem('jp_pro_theme')||'dark';
   document.documentElement.setAttribute('data-theme',th);
 
   $('#hd').innerHTML=`
     <div class="brand">
-      ${logo()}
+      ${LOGO}
       <div>
-        <h1>${E(st.cfg.empresa)}</h1>
-        <small>Gestão de Orçamentos & Propostas</small>
+        <h1>${E(db.cfg.empresa)}</h1>
+        <small>Orçamento & Engenharia de Preços</small>
       </div>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()">${th==='light'?'🌙 Escuro':'☀️ Claro'}</button>
+    <button class="theme-toggle" onclick="toggleTheme()">${th==='light'?'🌙 Dark':'☀️ Light'}</button>
   `;
 
   const tabs=[
-    ['home','📊','Início'],
     ['edit','📝','Orçamento'],
-    ['list','📁','Lista'],
+    ['list','📁','Orçamentos'],
     ['cat','🏷️','Preços'],
-    ['cfg','⚙️','Config']
+    ['cfg','⚙️','Parâmetros']
   ];
   $('#nv').innerHTML=tabs.map(t=>`<button class="${t[0]===view?'on':''}" onclick="nav('${t[0]}')"><span class="icon">${t[1]}</span>${t[2]}</button>`).join('');
 
   let h='';
-  if(view==='home') h=vHome();
-  else if(view==='edit') h=vEdit();
-  else if(view==='list') h=vList();
-  else if(view==='cat') h=vCat();
-  else if(view==='cfg') h=vCfg();
+  if(view==='edit') h=renderEditor();
+  else if(view==='list') h=renderLista();
+  else if(view==='cat') h=renderCatalogo();
+  else if(view==='cfg') h=renderConfig();
 
   $('#m').innerHTML=h;
 }
 
-function vHome(){
-  const totalAprov=st.bud.filter(b=>b.status==='aprovado').reduce((s,b)=>s+calc(b).venda,0);
-  const totalEmAberto=st.bud.filter(b=>b.status==='enviado').reduce((s,b)=>s+calc(b).venda,0);
-  const recents=st.bud.slice(0,5);
+/* =====================================================================
+   TELA PRINCIPAL: MONTADOR VISUAL & FINANCEIRO DE PRECISÃO
+   ===================================================================== */
+function renderEditor(){
+  if(!curOrc){
+    if(db.orcamentos.length) curOrc=db.orcamentos[0];
+    else {
+      curOrc=novoOrcamento();
+      db.seq++;
+      db.orcamentos.unshift(curOrc);
+      saveData();
+    }
+  }
+
+  const o=curOrc;
+  const fin=calcularFinanceiro(o);
 
   return `
-    <div class="kpi">
-      <div class="kpi-card">
-        <small>Aprovados</small>
-        <b>${R(totalAprov)}</b>
-      </div>
-      <div class="kpi-card">
-        <small>Em Aberto</small>
-        <b>${R(totalEmAberto)}</b>
-      </div>
-    </div>
-
-    <div class="card" style="text-align:center;padding:24px 16px">
-      <h2 style="justify-content:center;font-size:20px;color:var(--g)">Novo Orçamento</h2>
-      <p class="mut" style="margin-bottom:16px">Crie uma proposta profissional em minutos com cálculo de margens e custos.</p>
-      <button class="b" style="padding:14px 28px;font-size:16px" onclick="newB()">+ Criar Novo Orçamento</button>
-    </div>
-
+    <!-- CABEÇALHO DO ORÇAMENTO -->
     <div class="card">
-      <h2>Orçamentos Recentes</h2>
-      ${recents.length?recents.map(b=>{
-        const c=calc(b);
-        return `
-          <div class="item" style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div>
+          <h2>${E(o.num)}</h2>
+          <small class="mut">Criado em ${o.data}</small>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select style="width:auto;font-weight:700" onchange="curOrc.status=this.value;saveData();draw()">
+            <option value="rascunho" ${o.status==='rascunho'?'selected':''}>📝 Rascunho</option>
+            <option value="enviado" ${o.status==='enviado'?'selected':''}>📤 Enviado</option>
+            <option value="aprovado" ${o.status==='aprovado'?'selected':''}>✅ Aprovado</option>
+            <option value="recusado" ${o.status==='recusado'?'selected':''}>❌ Recusado</option>
+          </select>
+          <button class="b sm s" onclick="criarNovoOrcamento()">+ Novo</button>
+        </div>
+      </div>
+
+      <div class="r" style="margin-top:10px">
+        <div>
+          <label>Nome do Cliente</label>
+          <input type="text" placeholder="Ex: Dr. Roberto Alencar" value="${E(o.cliente.nome)}" oninput="curOrc.cliente.nome=this.value;saveData()">
+        </div>
+        <div>
+          <label>WhatsApp / Telefone</label>
+          <input type="tel" placeholder="(12) 99999-9999" value="${E(o.cliente.tel)}" oninput="curOrc.cliente.tel=this.value;saveData()">
+        </div>
+      </div>
+      <label>Local da Obra (Endereço ou Condomínio)</label>
+      <input type="text" placeholder="Ex: Condomínio Urbanova, São José dos Campos" value="${E(o.local)}" oninput="curOrc.local=this.value;saveData()">
+    </div>
+
+    <!-- SELETOR VISUAL COM PREÇOS REAIS DE MERCADO -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Seletor Rápido de Serviços</h2>
+        <span class="tag tag-gold">Preços Vale do Paraíba & SP</span>
+      </div>
+      <p class="mut" style="font-size:12px;margin-bottom:10px">Toque no serviço para configurar a metragem ou quantidade com cálculo instantâneo:</p>
+      
+      <div class="visual-grid">
+        ${db.cat.map(cat=>`
+          <div class="visual-card ${visualAtivo===cat.id?'active':''}" onclick="abrirConfiguradorVisual('${cat.id}')">
+            <span class="v-icon">${cat.ic}</span>
+            <b>${E(cat.nome)}</b>
+            <small>por ${cat.un}</small>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- PAINEL MODAL DINÂMICO DO SERVIÇO SELECIONADO -->
+      <div id="visual-config-box"></div>
+    </div>
+
+    <!-- TABELA DE ITENS ADICIONADOS -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h2>Itens do Orçamento (${o.itens.length})</h2>
+        <button class="b sm s" onclick="adicionarItemManual()">+ Item Avulso</button>
+      </div>
+
+      ${!o.itens.length ? '<p class="mut" style="text-align:center;padding:16px 0">Nenhum item adicionado ainda. Toque nos cards visuais acima para compor a proposta.</p>' : ''}
+
+      ${o.itens.map((it,idx)=>`
+        <div class="item-box">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+            <input style="font-weight:700;font-size:15px" value="${E(it.nome)}" placeholder="Nome do Serviço" oninput="curOrc.itens[${idx}].nome=this.value;saveData()">
+            <button class="b sm d" onclick="curOrc.itens.splice(${idx},1);saveData();draw()">✕</button>
+          </div>
+
+          <div class="r3" style="margin-top:8px">
             <div>
-              <b>${E(b.num)}</b> — ${E(b.cli.nome||'Sem cliente')}<br>
-              <small class="mut">${b.data} • Status: <span style="color:var(--g);font-weight:700">${b.status}</span></small>
+              <label>Quantidade</label>
+              <input type="number" step="any" value="${it.qtd}" oninput="curOrc.itens[${idx}].qtd=+this.value;saveData();draw()">
             </div>
-            <div style="text-align:right">
-              <b>${R(c.venda)}</b><br>
-              <button class="b sm s" onclick="open_('${b.id}')">Abrir</button>
+            <div>
+              <label>Unidade</label>
+              <select onchange="curOrc.itens[${idx}].un=this.value;saveData()">
+                ${UN.map(u=>`<option value="${u}" ${it.un===u?'selected':''}>${u}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label>Venda Unitária (R$)</label>
+              <input type="number" step="any" value="${it.preco}" oninput="curOrc.itens[${idx}].preco=+this.value;saveData();draw()">
             </div>
           </div>
-        `;
-      }).join(''):'<p class="mut">Nenhum orçamento cadastrado ainda.</p>'}
+
+          <div class="r3" style="margin-top:6px">
+            <div>
+              <label>Custo Unitário (R$)</label>
+              <input type="number" step="any" value="${it.custo}" oninput="curOrc.itens[${idx}].custo=+this.value;saveData();draw()">
+            </div>
+            <div>
+              <label>Margem Estimada</label>
+              <div style="padding:10px 0;font-weight:700;color:var(--g)">
+                ${it.preco > 0 ? (((it.preco - it.custo)/it.preco)*100).toFixed(0)+'%' : '0%'}
+              </div>
+            </div>
+            <div>
+              <label>Subtotal Venda</label>
+              <div style="padding:10px 0;font-weight:800;color:var(--tx);font-size:16px">
+                ${R(it.qtd * it.preco)}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- MÃO DE OBRA & LOGÍSTICA DE PRECISÃO -->
+    <div class="card">
+      <h2>Mão de Obra & Deslocamento</h2>
+      <div class="r">
+        <div>
+          <label>Duração Prevista (Dias de Obra)</label>
+          <input type="number" min="1" value="${o.logistica.diasObra||1}" oninput="curOrc.logistica.diasObra=+this.value;saveData();draw()">
+        </div>
+        <div>
+          <label>Distância Só Ida (km até a obra)</label>
+          <input type="number" step="any" placeholder="Ex: 28" value="${o.logistica.distanciaKm||0}" oninput="curOrc.logistica.distanciaKm=+this.value;saveData();draw()">
+        </div>
+      </div>
+
+      <div class="r3" style="margin-top:6px">
+        <div>
+          <label>Jardineiros Profissionais</label>
+          <input type="number" min="0" value="${o.logistica.numJardineiros}" oninput="curOrc.logistica.numJardineiros=+this.value;saveData();draw()">
+        </div>
+        <div>
+          <label>Ajudantes de Apoio</label>
+          <input type="number" min="0" value="${o.logistica.numAjudantes}" oninput="curOrc.logistica.numAjudantes=+this.value;saveData();draw()">
+        </div>
+        <div>
+          <label>Total de Viagens/Dias</label>
+          <input type="number" min="1" value="${o.logistica.viagens||1}" oninput="curOrc.logistica.viagens=+this.value;saveData();draw()">
+        </div>
+      </div>
+
+      <div class="r" style="margin-top:6px">
+        <div>
+          <label>Custos Extras (Caçamba / Pedágio / Refeição)</label>
+          <input type="number" step="any" value="${o.logistica.custoExtra||0}" oninput="curOrc.logistica.custoExtra=+this.value;saveData();draw()">
+        </div>
+        <div>
+          <label>Como Cobrar o Deslocamento?</label>
+          <select onchange="curOrc.logistica.repasse=this.value;saveData();draw()">
+            <option value="total" ${o.logistica.repasse==='total'?'selected':''}>Item separado na Proposta (100%)</option>
+            <option value="embutido" ${o.logistica.repasse==='embutido'?'selected':''}>Embutir no preço dos serviços</option>
+            <option value="nenhum" ${o.logistica.repasse==='nenhum'?'selected':''}>Absorver (Cortesia)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAINEL FINANCEIRO EXATO & RESULTADO LÍQUIDO -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Engenharia Financeira & Margem</h2>
+        <span class="fin-badge ${fin.abaixoMinimo?'badge-warn':'badge-good'}">
+          Margem Líquida: ${fin.margemLiquidaReal.toFixed(1)}%
+        </span>
+      </div>
+
+      <div class="r" style="margin-top:8px">
+        <div>
+          <label>Desconto para o Cliente (%)</label>
+          <input type="number" step="any" min="0" max="50" value="${o.financeiro.descontoPct||0}" oninput="curOrc.financeiro.descontoPct=+this.value;saveData();draw()">
+        </div>
+        <div>
+          <label>Alíquota de Imposto / Simples (%)</label>
+          <input type="number" step="any" value="${o.financeiro.impostoPct||db.cfg.aliquotaImposto}" oninput="curOrc.financeiro.impostoPct=+this.value;saveData();draw()">
+        </div>
+      </div>
+
+      <div class="fin-board">
+        <div class="fin-row">
+          <span class="mut">Custo de Materiais & Insumos:</span>
+          <b>${R(fin.custoMateriais)}</b>
+        </div>
+        <div class="fin-row">
+          <span class="mut">Custo de Mão de Obra (${o.logistica.diasObra||1} dias):</span>
+          <b>${R(fin.custoMaoObra)}</b>
+        </div>
+        <div class="fin-row">
+          <span class="mut">Custo Logístico (Combustível + Extras):</span>
+          <b>${R(fin.custoLogistica)}</b>
+        </div>
+        <div class="fin-row" style="color:var(--gold);font-weight:700">
+          <span>CUSTO TOTAL OPERACIONAL:</span>
+          <b>${R(fin.custoTotal)}</b>
+        </div>
+        <div class="fin-row">
+          <span class="mut">Deslocamento Cobrado do Cliente:</span>
+          <b>${R(fin.deslocamentoCobrado)}</b>
+        </div>
+        ${fin.valorDesconto > 0 ? `
+          <div class="fin-row" style="color:var(--red)">
+            <span>Desconto Concedido (${o.financeiro.descontoPct}%):</span>
+            <b>- ${R(fin.valorDesconto)}</b>
+          </div>
+        `:''}
+        <div class="fin-row">
+          <span class="mut">Impostos Estimados (${o.financeiro.impostoPct}%):</span>
+          <b>- ${R(fin.valorImposto)}</b>
+        </div>
+        <div class="fin-row" style="color:var(--g);font-weight:700">
+          <span>LUCRO LÍQUIDO NO BOLSO:</span>
+          <b>${R(fin.lucroLiquidoReal)}</b>
+        </div>
+        <div class="fin-row highlight">
+          <span>VALOR FINAL AO CLIENTE:</span>
+          <span>${R(fin.precoFinalCliente)}</span>
+        </div>
+      </div>
+
+      <div class="mut" style="font-size:12px;margin-top:8px">
+        💡 <b>Preço Sugerido para Margem de ${db.cfg.margemAlvo}%:</b> ${R(fin.precoSugeridoIdeal)}
+        ${fin.abaixoMinimo ? '<br><b style="color:var(--red)">⚠️ Atenção: Margem abaixo do piso mínimo de '+db.cfg.margemMinima+'%. Ajuste os preços ou reduza o desconto.</b>' : ''}
+      </div>
+
+      <!-- BOTÕES DE AÇÃO -->
+      <div class="row" style="margin-top:16px">
+        <button class="b" onclick="abrirDocumento('cli')">📄 Gerar Proposta do Cliente</button>
+        <button class="b s" onclick="abrirDocumento('int')">🔍 Relatório Interno</button>
+        <button class="b s" onclick="compartilharWhatsApp()">📲 Enviar WhatsApp</button>
+      </div>
     </div>
   `;
 }
 
-function newB(){
-  cur=novo();
-  st.seq++;
-  st.bud.unshift(cur);
-  op=null;
-  save();
-  nav('edit');
-}
+/* =====================================================================
+   CONFIGURADOR VISUAL DO SERVIÇO TOCADO
+   ===================================================================== */
+function abrirConfiguradorVisual(catId){
+  visualAtivo = (visualAtivo===catId ? null : catId);
+  const container = $('#visual-config-box');
+  if(!container){ draw(); return; }
 
-function open_(id){
-  cur=st.bud.find(b=>b.id===id);
-  op=null;
-  nav('edit');
-}
-
-function dup(id){
-  const orig=st.bud.find(b=>b.id===id);
-  if(!orig)return;
-  const c=JSON.parse(JSON.stringify(orig));
-  c.id='b'+Date.now();
-  c.num='JP-'+new Date().getFullYear()+'-'+String(st.seq++).padStart(3,'0');
-  c.status='rascunho';
-  st.bud.unshift(c);
-  save();
-  draw();
-}
-
-function del(id){
-  if(delId!==id){
-    delId=id;
-    draw();
+  if(!visualAtivo){
+    container.innerHTML='';
+    document.querySelectorAll('.visual-card').forEach(c=>c.classList.remove('active'));
     return;
   }
-  st.bud=st.bud.filter(b=>b.id!==id);
-  if(cur&&cur.id===id)cur=null;
-  delId=null;
-  save();
+
+  document.querySelectorAll('.visual-card').forEach(c=>c.classList.remove('active'));
+  const cardEl = event.currentTarget;
+  if(cardEl) cardEl.classList.add('active');
+
+  const cat=db.cat.find(c=>c.id===catId);
+  if(!cat) return;
+
+  let optsHtml = cat.opcoes.map((op,i)=>`
+    <div style="background:var(--card2);border:1px solid var(--br);padding:10px 14px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <div>
+        <b style="font-size:14px;color:var(--tx)">${E(op.n)}</b>
+        <div style="font-size:12px;color:var(--mut)">Custo Ref.: ${R(op.custo)} / Venda Sugerida: <b style="color:var(--g)">${R(op.venda)} por ${cat.un}</b></div>
+      </div>
+      <button class="b sm" onclick="adicionarOpcaoRapida('${cat.id}', ${i})">+ Adicionar</button>
+    </div>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="visual-modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="margin:0;color:var(--g)">${cat.ic} ${E(cat.nome)} — Opções & Preços Base</h3>
+        <button class="b sm d" onclick="abrirConfiguradorVisual(null)">Fechar</button>
+      </div>
+      <p class="mut" style="font-size:12px;margin-bottom:12px">${E(cat.desc)}</p>
+      ${optsHtml}
+    </div>
+  `;
+}
+
+function adicionarOpcaoRapida(catId, opIdx){
+  const cat=db.cat.find(c=>c.id===catId);
+  if(!cat) return;
+  const op=cat.opcoes[opIdx];
+  if(!op) return;
+
+  curOrc.itens.push({
+    nome: cat.nome + ' — ' + op.n,
+    qtd: cat.un==='m²'? 100 : cat.un==='mês'? 1 : 1,
+    un: cat.un,
+    custo: op.custo,
+    preco: op.venda,
+    perda: cat.perda||0
+  });
+
+  saveData();
+  draw();
+  toast('Item adicionado ✓');
+}
+
+function adicionarItemManual(){
+  curOrc.itens.push({
+    nome:'Serviço Especial / Material',
+    qtd:1,
+    un:'serv',
+    custo:100,
+    preco:250,
+    perda:0
+  });
+  saveData();
   draw();
 }
 
-function vList(){
-  if(!st.bud.length) return '<div class="card"><p class="mut">Nenhum orçamento ainda.</p><button class="b" onclick="newB()">Criar primeiro</button></div>';
+function criarNovoOrcamento(){
+  curOrc=novoOrcamento();
+  db.seq++;
+  db.orcamentos.unshift(curOrc);
+  visualAtivo=null;
+  saveData();
+  draw();
+  toast('Novo orçamento criado ✓');
+}
+
+/* =====================================================================
+   DOCUMENTOS: PROPOSTA COMERCIAL & RELATÓRIO INTERNO
+   ===================================================================== */
+function abrirDocumento(tipo){
+  if(!curOrc) return;
+  const o=curOrc;
+  const fin=calcularFinanceiro(o);
+  const cfg=db.cfg;
+
+  const bar=`
+    <div class="bar">
+      <button class="b" style="background:#fff;color:#0b5d32" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+      <button class="b" style="background:#fff;color:#0b5d32" onclick="fecharDocumento()">✕ Fechar</button>
+    </div>
+  `;
+
+  let body='';
+  if(tipo==='cli'){
+    body=`
+      <div class="hd">
+        ${LOGO}
+        <div>
+          <h1>${E(cfg.empresa)}</h1>
+          <div>${E(cfg.tel)} • ${E(cfg.email)}</div>
+          <small style="color:#666">${E(cfg.base)}</small>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:20px;border-bottom:1px solid #ddd;padding-bottom:10px">
+        <div>
+          <h2 style="margin:0;color:#0b5d32;font-size:20px">Proposta Comercial nº ${E(o.num)}</h2>
+          <div style="font-size:12px;color:#666">Emissão: ${o.data} • Validade: ${cfg.validadeDias} dias</div>
+        </div>
+        <div style="text-align:right">
+          <b>Status: ${o.status.toUpperCase()}</b>
+        </div>
+      </div>
+
+      <h3 style="margin-top:16px">Dados do Cliente</h3>
+      <p style="margin:4px 0">
+        <b>Cliente:</b> ${E(o.cliente.nome||'Cliente')} &nbsp;|&nbsp; <b>Telefone:</b> ${E(o.cliente.tel)}<br>
+        <b>Local da Execução:</b> ${E(o.local||'Não informado')}
+      </p>
+
+      <h3>Escopo dos Serviços e Insumos</h3>
+      <table>
+        <thead>
+          <tr style="background:#f4f4f4">
+            <th>Item / Descrição</th>
+            <th class="n">Qtd</th>
+            <th class="n">Valor Unit.</th>
+            <th class="n">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${o.itens.map(i=>`
+            <tr>
+              <td><b>${E(i.nome)}</b></td>
+              <td class="n">${i.qtd} ${i.un}</td>
+              <td class="n">${R(i.preco)}</td>
+              <td class="n">${R(i.qtd * i.preco)}</td>
+            </tr>
+          `).join('')}
+          ${fin.deslocamentoCobrado > 0 ? `
+            <tr>
+              <td><b>Deslocamento, Transporte e Logística</b></td>
+              <td class="n">1 serv</td>
+              <td class="n">${R(fin.deslocamentoCobrado)}</td>
+              <td class="n">${R(fin.deslocamentoCobrado)}</td>
+            </tr>
+          `:''}
+        </tbody>
+      </table>
+
+      ${fin.valorDesconto > 0 ? `
+        <div style="text-align:right;font-size:14px;color:#b3261e;margin-top:8px">
+          Desconto Especial: - ${R(fin.valorDesconto)} (${o.financeiro.descontoPct}%)
+        </div>
+      `:''}
+
+      <div class="tt">Investimento Total: ${R(fin.precoFinalCliente)}</div>
+
+      <h3>Condições Comerciais</h3>
+      <p style="margin:4px 0">
+        <b>Forma de Pagamento:</b> ${E(cfg.pagto)}<br>
+        <b>Prazo de Execução:</b> ${E(cfg.prazo)}<br>
+        <b>Não incluso:</b> ${E(cfg.excl)}
+      </p>
+
+      <div style="margin-top:40px;padding-top:20px;border-top:1px solid #ccc;display:flex;justify-content:space-between">
+        <div>
+          ________________________________________<br>
+          <b>${E(cfg.empresa)}</b><br>
+          <small>Responsável Técnico</small>
+        </div>
+        <div style="text-align:right">
+          ________________________________________<br>
+          <b>Aceite do Cliente: ${E(o.cliente.nome||'Cliente')}</b><br>
+          <small>Data: ___/___/______</small>
+        </div>
+      </div>
+    `;
+  } else {
+    body=`
+      <div class="hd">
+        ${LOGO}
+        <div>
+          <h1>${E(cfg.empresa)} — Relatório Financeiro Interno</h1>
+          <div>Proposta: ${E(o.num)} • Cliente: ${E(o.cliente.nome||'Sem nome')}</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px">Engenharia de Custos</h3>
+      <table>
+        <thead>
+          <tr style="background:#f4f4f4">
+            <th>Composição de Custo</th>
+            <th class="n">Valor (R$)</th>
+            <th class="n">% do Custo Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Custo de Materiais e Insumos (com perdas)</td>
+            <td class="n">${R(fin.custoMateriais)}</td>
+            <td class="n">${fin.custoTotal>0 ? ((fin.custoMateriais/fin.custoTotal)*100).toFixed(1)+'%' : '0%'}</td>
+          </tr>
+          <tr>
+            <td>Custo de Mão de Obra (${o.logistica.diasObra||1} dias • ${o.logistica.numJardineiros} jard. + ${o.logistica.numAjudantes} ajud.)</td>
+            <td class="n">${R(fin.custoMaoObra)}</td>
+            <td class="n">${fin.custoTotal>0 ? ((fin.custoMaoObra/fin.custoTotal)*100).toFixed(1)+'%' : '0%'}</td>
+          </tr>
+          <tr>
+            <td>Custo Logístico (Combustível ${o.logistica.distanciaKm*2*(o.logistica.viagens||1)} km + Extras)</td>
+            <td class="n">${R(fin.custoLogistica)}</td>
+            <td class="n">${fin.custoTotal>0 ? ((fin.custoLogistica/fin.custoTotal)*100).toFixed(1)+'%' : '0%'}</td>
+          </tr>
+          <tr style="font-weight:bold;background:#fafafa">
+            <td>CUSTO TOTAL DA OBRA</td>
+            <td class="n">${R(fin.custoTotal)}</td>
+            <td class="n">100.0%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Demonstrativo de Resultado Líquido</h3>
+      <table>
+        <tr><td>Receita Bruta Cobrada do Cliente</td><td class="n"><b>${R(fin.precoFinalCliente)}</b></td></tr>
+        <tr><td>(-) Custo Total Operacional</td><td class="n" style="color:#b3261e">- ${R(fin.custoTotal)}</td></tr>
+        <tr><td>(-) Impostos Estimados (${o.financeiro.impostoPct}%)</td><td class="n" style="color:#b3261e">- ${R(fin.valorImposto)}</td></tr>
+        <tr style="font-size:16px;font-weight:bold;color:#0b5d32;background:#e1f0e6">
+          <td>(=) LUCRO LÍQUIDO REAL</td>
+          <td class="n">${R(fin.lucroLiquidoReal)}</td>
+        </tr>
+        <tr>
+          <td><b>Margem Líquida Real</b></td>
+          <td class="n"><b>${fin.margemLiquidaReal.toFixed(2)}%</b> (Piso mínimo: ${cfg.margemMinima}%)</td>
+        </tr>
+      </table>
+    `;
+  }
+
+  $('#doc').innerHTML = bar + `<div class="pg">${body}</div>`;
+  $('#doc').style.display = 'block';
+  $('#doc').scrollTop = 0;
+}
+
+function fecharDocumento(){
+  $('#doc').style.display='none';
+}
+
+function compartilharWhatsApp(){
+  if(!curOrc) return;
+  const o=curOrc;
+  const fin=calcularFinanceiro(o);
+  const cfg=db.cfg;
+
+  let msg = `Olá, *${o.cliente.nome||'Cliente'}*!\n`;
+  msg += `Aqui está a sua *Proposta Comercial ${o.num}* da *${cfg.empresa}*:\n\n`;
+  msg += `📍 *Local:* ${o.local||'A combinar'}\n\n`;
+  msg += `📋 *Serviços & Insumos:*\n`;
+  o.itens.forEach(it=>{
+    msg += `• *${it.nome}*: ${it.qtd} ${it.un} — ${R(it.qtd * it.preco)}\n`;
+  });
+  if(fin.deslocamentoCobrado > 0){
+    msg += `• *Deslocamento & Logística*: ${R(fin.deslocamentoCobrado)}\n`;
+  }
+  if(fin.valorDesconto > 0){
+    msg += `\n🏷️ *Desconto Concedido:* - ${R(fin.valorDesconto)}\n`;
+  }
+  msg += `\n💰 *Total da Proposta:* *${R(fin.precoFinalCliente)}*\n`;
+  msg += `💳 *Condições:* ${cfg.pagto}\n`;
+  msg += `⏳ *Validade:* ${cfg.validadeDias} dias\n\n`;
+  msg += `Ficamos à disposição para agendar o início dos trabalhos!`;
+
+  const tel=(o.cliente.tel||'').replace(/\D/g,'');
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+/* =====================================================================
+   LISTA DE ORÇAMENTOS
+   ===================================================================== */
+function renderLista(){
+  const orcs=db.orcamentos;
+  if(!orcs.length){
+    return `
+      <div class="card" style="text-align:center;padding:30px">
+        <h2>Nenhum orçamento cadastrado</h2>
+        <p class="mut">Comece criando o primeiro orçamento profissional da sua equipe.</p>
+        <button class="b" onclick="criarNovoOrcamento()">+ Criar Orçamento</button>
+      </div>
+    `;
+  }
+
+  const aprovados = orcs.filter(o=>o.status==='aprovado').reduce((s,o)=>s+calcularFinanceiro(o).precoFinalCliente,0);
+  const abertos = orcs.filter(o=>o.status==='enviado'||o.status==='rascunho').reduce((s,o)=>s+calcularFinanceiro(o).precoFinalCliente,0);
+
   return `
+    <div class="r" style="margin-bottom:12px">
+      <div class="card" style="margin:0;text-align:center;padding:12px">
+        <small class="mut">Em Negociação</small>
+        <div style="font-size:20px;font-weight:800;color:var(--gold);margin-top:4px">${R(abertos)}</div>
+      </div>
+      <div class="card" style="margin:0;text-align:center;padding:12px">
+        <small class="mut">Aprovados</small>
+        <div style="font-size:20px;font-weight:800;color:var(--g);margin-top:4px">${R(aprovados)}</div>
+      </div>
+    </div>
+
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h2>Todos os Orçamentos (${st.bud.length})</h2>
-        <button class="b sm" onclick="newB()">+ Novo</button>
+        <h2>Orçamentos (${orcs.length})</h2>
+        <button class="b sm" onclick="criarNovoOrcamento()">+ Novo</button>
       </div>
-      ${st.bud.map(b=>{
-        const c=calc(b);
+
+      ${orcs.map(o=>{
+        const fin=calcularFinanceiro(o);
         return `
-          <div class="item">
+          <div class="item-box">
             <div style="display:flex;justify-content:space-between;align-items:flex-start">
               <div>
-                <b style="font-size:15px">${E(b.num)}</b> — ${E(b.cli.nome||'Sem cliente')}<br>
-                <small class="mut">${b.data} • ${E(b.end||'Sem endereço')} • <span style="color:var(--g);font-weight:700">${b.status}</span></small>
+                <b style="font-size:16px">${E(o.num)}</b> — ${E(o.cliente.nome||'Sem cliente')}<br>
+                <small class="mut">${o.data} • ${E(o.local||'Sem local')} • Status: <b>${o.status.toUpperCase()}</b></small>
               </div>
               <div style="text-align:right">
-                <b style="font-size:16px;color:var(--g)">${R(c.venda)}</b>
-                <div class="mut" style="font-size:11px">Margem: ${c.marg.toFixed(1)}%</div>
+                <div style="font-size:17px;font-weight:800;color:var(--g)">${R(fin.precoFinalCliente)}</div>
+                <small class="fin-badge ${fin.abaixoMinimo?'badge-warn':'badge-good'}">
+                  Margem: ${fin.margemLiquidaReal.toFixed(1)}%
+                </small>
               </div>
             </div>
-            <div class="row" style="margin-top:8px">
-              <button class="b sm" onclick="open_('${b.id}')">Editar</button>
-              <button class="b sm s" onclick="cur=st.bud.find(x=>x.id==='${b.id}');showDoc('cli')">Proposta</button>
-              <button class="b sm s" onclick="cur=st.bud.find(x=>x.id==='${b.id}');showDoc('int')">Interno</button>
-              <button class="b sm s" onclick="dup('${b.id}')">Duplicar</button>
-              <button class="b sm d" onclick="del('${b.id}')">${delId===b.id?'Confirmar?':'Excluir'}</button>
+
+            <div class="row" style="margin-top:10px">
+              <button class="b sm" onclick="abrirParaEdicao('${o.id}')">Editar</button>
+              <button class="b sm s" onclick="curOrc=db.orcamentos.find(x=>x.id==='${o.id}');abrirDocumento('cli')">Proposta</button>
+              <button class="b sm s" onclick="curOrc=db.orcamentos.find(x=>x.id==='${o.id}');abrirDocumento('int')">Interno</button>
+              <button class="b sm s" onclick="duplicarOrcamento('${o.id}')">Duplicar</button>
+              <button class="b sm d" onclick="excluirOrcamento('${o.id}')">
+                ${delConfirmId===o.id?'Confirmar Exclusão?':'Excluir'}
+              </button>
             </div>
           </div>
         `;
@@ -401,232 +1216,71 @@ function vList(){
   `;
 }
 
-function vEdit(){
-  if(!cur){
-    if(st.bud.length) cur=st.bud[0];
-    else return '<div class="card"><p class="mut">Nenhum orçamento selecionado.</p><button class="b" onclick="newB()">Criar novo</button></div>';
-  }
-  const b=cur, c=calc(b);
+function abrirParaEdicao(id){
+  curOrc=db.orcamentos.find(o=>o.id===id);
+  visualAtivo=null;
+  nav('edit');
+}
 
+function duplicarOrcamento(id){
+  const orig=db.orcamentos.find(o=>o.id===id);
+  if(!orig) return;
+  const clone=JSON.parse(JSON.stringify(orig));
+  clone.id='jp_'+Date.now();
+  clone.num='JP-'+new Date().getFullYear()+'-'+String(db.seq++).padStart(3,'0');
+  clone.status='rascunho';
+  clone.data=new Date().toISOString().slice(0,10);
+  db.orcamentos.unshift(clone);
+  saveData();
+  draw();
+  toast('Orçamento duplicado ✓');
+}
+
+function excluirOrcamento(id){
+  if(delConfirmId!==id){
+    delConfirmId=id;
+    draw();
+    return;
+  }
+  db.orcamentos=db.orcamentos.filter(o=>o.id!==id);
+  if(curOrc&&curOrc.id===id) curOrc=null;
+  delConfirmId=null;
+  saveData();
+  draw();
+  toast('Orçamento excluído');
+}
+
+/* =====================================================================
+   CATÁLOGO DE PREÇOS BASE DA REGIÃO
+   ===================================================================== */
+function renderCatalogo(){
   return `
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h2>${E(b.num)}</h2>
-        <select style="width:auto;padding:6px 10px" onchange="cur.status=this.value;save();draw()">
-          <option value="rascunho" ${b.status==='rascunho'?'selected':''}>Rascunho</option>
-          <option value="enviado" ${b.status==='enviado'?'selected':''}>Enviado</option>
-          <option value="aprovado" ${b.status==='aprovado'?'selected':''}>Aprovado</option>
-          <option value="recusado" ${b.status==='recusado'?'selected':''}>Recusado</option>
-        </select>
+        <h2>Catálogo de Preços Regionais</h2>
+        <span class="tag tag-gold">Preços Editáveis</span>
       </div>
+      <p class="mut">Esses valores são carregados como base ao tocar nos cartões visuais do montador de orçamento.</p>
 
-      <div class="r">
-        <div>
-          <label>Data</label>
-          <input type="date" value="${b.data}" onchange="cur.data=this.value;save()">
-        </div>
-        <div>
-          <label>Projeto / Identificação</label>
-          <input type="text" placeholder="Ex: Gramado Fachada" value="${E(b.proj)}" oninput="cur.proj=this.value;save()">
-        </div>
-      </div>
-
-      <h3>Dados do Cliente</h3>
-      <div class="r">
-        <div>
-          <label>Nome do Cliente</label>
-          <input type="text" placeholder="Nome completo" value="${E(b.cli.nome)}" oninput="cur.cli.nome=this.value;save()">
-        </div>
-        <div>
-          <label>WhatsApp / Telefone</label>
-          <input type="tel" placeholder="(12) 99999-9999" value="${E(b.cli.tel)}" oninput="cur.cli.tel=this.value;save()">
-        </div>
-      </div>
-      <label>Endereço da Obra</label>
-      <input type="text" placeholder="Rua, condomínio, cidade" value="${E(b.end)}" oninput="cur.end=this.value;save()">
-    </div>
-
-    <!-- ITENS -->
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <h2>Serviços e Materiais (${b.itens.length})</h2>
-        <button class="b sm s" onclick="op=op?'':1;draw()">${op?'Fechar catálogo':'+ Adicionar do catálogo'}</button>
-      </div>
-
-      ${op?`
-        <div style="background:var(--bg);padding:10px;border-radius:12px;margin-bottom:12px">
-          <div class="grid">
-            ${st.cat.map(cat=>`
-              <div class="tile" onclick="addItemCat('${cat.id}')">
-                <i>${cat.ic}</i>
-                <b>${E(cat.nome)}</b>
-              </div>
-            `).join('')}
+      ${db.cat.map((cat,cIdx)=>`
+        <div class="item-box" style="margin-top:14px">
+          <div style="font-size:16px;font-weight:700;color:var(--g);margin-bottom:6px">
+            ${cat.ic} ${E(cat.nome)} (Unidade: ${cat.un})
           </div>
-        </div>
-      `:''}
+          <small class="mut">${E(cat.desc)}</small>
 
-      ${b.itens.map((it,idx)=>`
-        <div class="item">
-          <div style="display:flex;justify-content:space-between;gap:8px">
-            <input style="font-weight:700" value="${E(it.nome)}" placeholder="Nome do item" oninput="cur.itens[${idx}].nome=this.value;save()">
-            <button class="b sm d" onclick="cur.itens.splice(${idx},1);save();draw()">✕</button>
-          </div>
-          <div class="r3" style="margin-top:6px">
-            <div>
-              <label>Qtd</label>
-              <input type="number" step="any" value="${it.qtd}" oninput="cur.itens[${idx}].qtd=this.value;save();draw()">
-            </div>
-            <div>
-              <label>Unidade</label>
-              <select onchange="cur.itens[${idx}].un=this.value;save()">
-                ${UN.map(u=>`<option value="${u}" ${it.un===u?'selected':''}>${u}</option>`).join('')}
-              </select>
-            </div>
-            <div>
-              <label>Preço Venda Unit.</label>
-              <input type="number" step="any" value="${it.preco}" oninput="cur.itens[${idx}].preco=this.value;save();draw()">
-            </div>
-          </div>
-          <div class="r" style="margin-top:6px">
-            <div>
-              <label>Custo Unit. (interno)</label>
-              <input type="number" step="any" value="${it.custo}" oninput="cur.itens[${idx}].custo=this.value;save();draw()">
-            </div>
-            <div>
-              <label>Perda %</label>
-              <input type="number" step="any" value="${it.perda}" oninput="cur.itens[${idx}].perda=this.value;save();draw()">
-            </div>
-          </div>
-          <label>Descrição / Detalhes</label>
-          <input type="text" placeholder="Ex: Fornecimento e plantio de tapetes..." value="${E(it.desc)}" oninput="cur.itens[${idx}].desc=this.value;save()">
-        </div>
-      `).join('')}
-
-      <div class="row" style="margin-top:12px">
-        <button class="b sm s" onclick="addItemManual()">+ Item Avulso</button>
-      </div>
-    </div>
-
-    <!-- DESLOCAMENTO -->
-    <div class="card">
-      <h2>Deslocamento e Logística</h2>
-      <div class="r">
-        <div>
-          <label>Distância Manual (km ida)</label>
-          <input type="number" step="any" placeholder="Ex: 25" value="${b.des.kmM}" oninput="cur.des.kmM=this.value;save();draw()">
-        </div>
-        <div>
-          <label>Nº de Viagens</label>
-          <input type="number" value="${b.des.viagens}" oninput="cur.des.viagens=this.value;save();draw()">
-        </div>
-      </div>
-      <div class="r" style="margin-top:6px">
-        <div>
-          <label>Repasse do Deslocamento</label>
-          <select onchange="cur.des.rep=this.value;save();draw()">
-            <option value="total" ${b.des.rep==='total'?'selected':''}>Cobrar 100%</option>
-            <option value="parcial" ${b.des.rep==='parcial'?'selected':''}>Cobrar Parcial (%)</option>
-            <option value="nenhum" ${b.des.rep==='nenhum'?'selected':''}>Absorver (não cobrar)</option>
-          </select>
-        </div>
-        <div>
-          <label>Custos Extras (pedágio, etc)</label>
-          <input type="number" step="any" value="${b.des.extra}" oninput="cur.des.extra=this.value;save();draw()">
-        </div>
-      </div>
-    </div>
-
-    <!-- RESUMO FINANCEIRO -->
-    <div class="card">
-      <h2>Financeiro e Margem</h2>
-      <div class="r">
-        <div>
-          <label>Desconto (%)</label>
-          <input type="number" step="any" value="${b.fin.desc}" oninput="cur.fin.desc=this.value;save();draw()">
-        </div>
-        <div>
-          <label>Impostos Estimados (%)</label>
-          <input type="number" step="any" value="${b.fin.imp}" oninput="cur.fin.imp=this.value;save();draw()">
-        </div>
-      </div>
-
-      <div class="tot">
-        <div><span>Custo Total Estimado:</span><b>${R(c.custo)}</b></div>
-        <div><span>Deslocamento Cobrado:</span><b>${R(c.rep)}</b></div>
-        <div><span>Desconto:</span><b>- ${R(c.desc)}</b></div>
-        <div><span>Lucro Líquido Estimado:</span><b style="color:var(--g)">${R(c.res)}</b></div>
-        <div><span>Margem de Lucro:</span><b class="${c.min?'warn':''}">${c.marg.toFixed(1)}%</b></div>
-        <div class="big"><span>Total ao Cliente:</span><b>${R(c.venda)}</b></div>
-      </div>
-
-      <div class="row" style="margin-top:16px">
-        <button class="b" onclick="showDoc('cli')">📄 Gerar Proposta do Cliente</button>
-        <button class="b s" onclick="showDoc('int')">🔍 Relatório Interno</button>
-        <button class="b s" onclick="sendWA()">📲 Enviar WhatsApp</button>
-      </div>
-    </div>
-  `;
-}
-
-function addItemCat(catId){
-  const cat=st.cat.find(c=>c.id===catId);
-  if(!cat)return;
-  const opt=cat.v[0]||['Padrão',0,0];
-  cur.itens.push({
-    nome:cat.nome+' — '+opt[0],
-    desc:'',
-    qtd:1,
-    un:cat.un,
-    preco:opt[2],
-    custo:opt[1],
-    perda:cat.perda||0
-  });
-  op=null;
-  save();
-  draw();
-}
-
-function addItemManual(){
-  cur.itens.push({
-    nome:'Novo Serviço',
-    desc:'',
-    qtd:1,
-    un:'serv',
-    preco:0,
-    custo:0,
-    perda:0
-  });
-  save();
-  draw();
-}
-
-function sendWA(){
-  if(!cur)return;
-  const c=calc(cur);
-  const msg=`Olá ${cur.cli.nome||''}! Aqui está o resumo do seu orçamento da *${st.cfg.empresa}*:\n\n`+
-    cur.itens.map(i=>`• *${i.nome}*: ${i.qtd} ${i.un} — ${R(i.qtd*i.preco)}`).join('\n')+
-    (c.rep>0?`\n• *Deslocamento*: ${R(c.rep)}`:'')+
-    `\n\n*Total:* ${R(c.venda)}\n*Condições:* ${st.cfg.pagto}\n*Validade:* ${st.cfg.valid} dias\n\nFicamos à disposição para agendar a visita!`;
-  
-  const tel=(cur.cli.tel||'').replace(/\D/g,'');
-  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,'_blank');
-}
-
-function vCat(){
-  return `
-    <div class="card">
-      <h2>Catálogo de Preços Base</h2>
-      <p class="mut">Configure os valores padrão de serviços e insumos.</p>
-      ${st.cat.map((cat,i)=>`
-        <div class="item">
-          <b>${cat.ic} ${E(cat.nome)}</b> (${cat.un})
-          <div style="margin-top:6px">
-            ${cat.v.map((sub,si)=>`
-              <div class="r3" style="margin-bottom:4px">
-                <input value="${E(sub[0])}" oninput="st.cat[${i}].v[${si}][0]=this.value;save()">
-                <input type="number" step="any" placeholder="Custo" value="${sub[1]}" oninput="st.cat[${i}].v[${si}][1]=+this.value;save()">
-                <input type="number" step="any" placeholder="Venda" value="${sub[2]}" oninput="st.cat[${i}].v[${si}][2]=+this.value;save()">
+          <div style="margin-top:10px">
+            ${cat.opcoes.map((op,oIdx)=>`
+              <div class="r3" style="margin-bottom:6px;align-items:center">
+                <input value="${E(op.n)}" oninput="db.cat[${cIdx}].opcoes[${oIdx}].n=this.value;saveData()">
+                <div>
+                  <small class="mut">Custo Ref. (R$)</small>
+                  <input type="number" step="any" value="${op.custo}" oninput="db.cat[${cIdx}].opcoes[${oIdx}].custo=+this.value;saveData()">
+                </div>
+                <div>
+                  <small class="mut">Venda Sugerida (R$)</small>
+                  <input type="number" step="any" value="${op.venda}" oninput="db.cat[${cIdx}].opcoes[${oIdx}].venda=+this.value;saveData()">
+                </div>
               </div>
             `).join('')}
           </div>
@@ -636,57 +1290,93 @@ function vCat(){
   `;
 }
 
-function vCfg(){
+/* =====================================================================
+   CONFIGURAÇÕES GERAIS DA EMPRESA
+   ===================================================================== */
+function renderConfig(){
+  const c=db.cfg;
   return `
     <div class="card">
-      <h2>Configurações da Empresa</h2>
-      <label>Nome da Empresa</label>
-      <input value="${E(st.cfg.empresa)}" oninput="st.cfg.empresa=this.value;save()">
+      <h2>Parâmetros de Custos & Empresa</h2>
+      
       <div class="r">
+        <div>
+          <label>Nome Comercial</label>
+          <input value="${E(c.empresa)}" oninput="db.cfg.empresa=this.value;saveData()">
+        </div>
         <div>
           <label>Telefone / WhatsApp</label>
-          <input value="${E(st.cfg.tel)}" oninput="st.cfg.tel=this.value;save()">
-        </div>
-        <div>
-          <label>E-mail</label>
-          <input value="${E(st.cfg.email)}" oninput="st.cfg.email=this.value;save()">
+          <input value="${E(c.tel)}" oninput="db.cfg.tel=this.value;saveData()">
         </div>
       </div>
-      <label>Endereço Base</label>
-      <input value="${E(st.cfg.base)}" oninput="st.cfg.base=this.value;save()">
-      <div class="r3">
+
+      <div class="r" style="margin-top:6px">
         <div>
-          <label>Consumo (km/L)</label>
-          <input type="number" step="any" value="${st.cfg.kmL}" oninput="st.cfg.kmL=this.value;save()">
+          <label>E-mail Oficial</label>
+          <input value="${E(c.email)}" oninput="db.cfg.email=this.value;saveData()">
         </div>
         <div>
-          <label>Preço Combustível (R$/L)</label>
-          <input type="number" step="any" value="${st.cfg.gas}" oninput="st.cfg.gas=this.value;save()">
+          <label>Endereço Base da Equipe</label>
+          <input value="${E(c.base)}" oninput="db.cfg.base=this.value;saveData()">
+        </div>
+      </div>
+
+      <h3>Custos Operacionais & Metas</h3>
+      <div class="r3">
+        <div>
+          <label>Diária Jardineiro (R$)</label>
+          <input type="number" step="any" value="${c.diariaJardineiro}" oninput="db.cfg.diariaJardineiro=+this.value;saveData()">
+        </div>
+        <div>
+          <label>Diária Ajudante (R$)</label>
+          <input type="number" step="any" value="${c.diariaAjudante}" oninput="db.cfg.diariaAjudante=+this.value;saveData()">
+        </div>
+        <div>
+          <label>Preço Gasolina (R$/L)</label>
+          <input type="number" step="any" value="${c.gas}" oninput="db.cfg.gas=+this.value;saveData()">
+        </div>
+      </div>
+
+      <div class="r3" style="margin-top:6px">
+        <div>
+          <label>Consumo Médio (km/L)</label>
+          <input type="number" step="any" value="${c.kmL}" oninput="db.cfg.kmL=+this.value;saveData()">
+        </div>
+        <div>
+          <label>Margem Alvo (%)</label>
+          <input type="number" step="any" value="${c.margemAlvo}" oninput="db.cfg.margemAlvo=+this.value;saveData()">
         </div>
         <div>
           <label>Margem Mínima (%)</label>
-          <input type="number" step="any" value="${st.cfg.mmin}" oninput="st.cfg.mmin=this.value;save()">
+          <input type="number" step="any" value="${c.margemMinima}" oninput="db.cfg.margemMinima=+this.value;saveData()">
         </div>
       </div>
-      <label>Condição de Pagamento Padrão</label>
-      <textarea rows="2" oninput="st.cfg.pagto=this.value;save()">${E(st.cfg.pagto)}</textarea>
-      <label>Prazo de Execução Padrão</label>
-      <textarea rows="2" oninput="st.cfg.prazo=this.value;save()">${E(st.cfg.prazo)}</textarea>
+
+      <h3>Textos Padrão da Proposta</h3>
+      <label>Condição de Pagamento</label>
+      <textarea rows="2" oninput="db.cfg.pagto=this.value;saveData()">${E(c.pagto)}</textarea>
+
+      <label>Prazo de Execução</label>
+      <textarea rows="2" oninput="db.cfg.prazo=this.value;saveData()">${E(c.prazo)}</textarea>
+
+      <label>Não Incluso na Proposta</label>
+      <textarea rows="2" oninput="db.cfg.excl=this.value;saveData()">${E(c.excl)}</textarea>
     </div>
 
     <div class="card">
       <h2>Backup & Dados</h2>
+      <p class="mut">Exporte seus orçamentos e configurações para salvar no computador ou transferir para outro celular.</p>
       <div class="row">
-        <button class="b s" onclick="exportData()">💾 Baixar Backup JSON</button>
-        <button class="b s" onclick="$('#fileInput').click()">📥 Restaurar Backup</button>
-        <input type="file" id="fileInput" style="display:none" accept=".json" onchange="importData(this)">
+        <button class="b s" onclick="exportarBackup()">💾 Baixar Backup Completo (JSON)</button>
+        <button class="b s" onclick="$('#fileInp').click()">📥 Restaurar Backup</button>
+        <input type="file" id="fileInp" style="display:none" accept=".json" onchange="importarBackup(this)">
       </div>
     </div>
   `;
 }
 
-function exportData(){
-  const blob=new Blob([JSON.stringify(st,null,2)],{type:'application/json'});
+function exportarBackup(){
+  const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
   a.href=url;
@@ -694,106 +1384,28 @@ function exportData(){
   a.click();
 }
 
-function importData(inp){
+function importarBackup(inp){
   const file=inp.files[0];
-  if(!file)return;
+  if(!file) return;
   const r=new FileReader();
   r.onload=()=>{
     try{
-      const d=JSON.parse(r.result);
-      if(d&&d.cfg){
-        st=d;
-        save();
+      const data=JSON.parse(r.result);
+      if(data && data.cfg){
+        db=data;
+        saveData();
         draw();
         toast('Backup restaurado ✓');
       }
-    }catch(e){alert('Arquivo inválido')}
+    }catch(e){alert('Arquivo de backup inválido')}
   };
   r.readAsText(file);
 }
 
-function showDoc(tipo){
-  if(!cur)return;
-  const b=cur, c=calc(b), cfg=st.cfg;
-  const bar=`
-    <div class="bar">
-      <button class="b" style="background:#fff;color:#0b5d32" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
-      <button class="b" style="background:#fff;color:#0b5d32" onclick="closeDoc()">✕ Fechar</button>
-    </div>
-  `;
-
-  let h='';
-  if(tipo==='cli'){
-    h=`
-      <div class="hd">
-        ${logo()}
-        <div>
-          <h1>${E(cfg.empresa)}</h1>
-          <div>${E(cfg.tel)} • ${E(cfg.email)}</div>
-        </div>
-      </div>
-      <h2 style="margin-top:20px;color:#0b5d32">Proposta Comercial: ${E(b.num)}</h2>
-      <p>Data: ${b.data} • Validade: ${cfg.valid} dias</p>
-      <h3>Cliente</h3>
-      <p><b>${E(b.cli.nome||'Cliente')}</b><br>${E(b.cli.tel)}<br>Local da Obra: ${E(b.end)}</p>
-      <h3>Serviços Inclusos</h3>
-      <table>
-        <thead><tr><th>Item</th><th class="n">Qtd</th><th class="n">Unitário</th><th class="n">Subtotal</th></tr></thead>
-        <tbody>
-          ${b.itens.map(i=>`
-            <tr>
-              <td><b>${E(i.nome)}</b><br><small style="color:#555">${E(i.desc)}</small></td>
-              <td class="n">${i.qtd} ${i.un}</td>
-              <td class="n">${R(i.preco*c.fat)}</td>
-              <td class="n">${R(i.qtd*i.preco*c.fat)}</td>
-            </tr>
-          `).join('')}
-          ${c.rep>0?`<tr><td><b>Deslocamento e Logística</b></td><td class="n">1</td><td class="n">${R(c.rep)}</td><td class="n">${R(c.rep)}</td></tr>`:''}
-        </tbody>
-      </table>
-      <div class="tt">Valor Total: ${R(c.venda)}</div>
-      ${b.obs?`<h3>Observações</h3><p>${E(b.obs)}</p>`:''}
-      <h3>Condições Comerciais</h3>
-      <p><b>Pagamento:</b> ${E(cfg.pagto)}<br><b>Prazo:</b> ${E(cfg.prazo)}<br><b>Não incluso:</b> ${E(cfg.excl)}</p>
-      <br><br>
-      <p>Assinatura do Cliente: ____________________________________ Data: ___/___/______</p>
-    `;
-  }else{
-    h=`
-      <div class="hd">
-        ${logo()}
-        <div>
-          <h1>${E(cfg.empresa)} — Relatório Interno</h1>
-          <div>${b.num} • Status: ${b.status}</div>
-        </div>
-      </div>
-      <h3>Detalhamento de Custos e Margem</h3>
-      <table>
-        <tr><td>Custo Total Insumos + Equipe</td><td class="n">${R(c.custoI)}</td></tr>
-        <tr><td>Custo Deslocamento (combustível + extras)</td><td class="n">${R(c.dcost)}</td></tr>
-        <tr><td><b>Custo Total da Obra</b></td><td class="n"><b>${R(c.custo)}</b></td></tr>
-        <tr><td>Preço Bruto Sugerido</td><td class="n">${R(c.bruto)}</td></tr>
-        <tr><td>Desconto Aplicado</td><td class="n">- ${R(c.desc)}</td></tr>
-        <tr><td>Impostos Estimados</td><td class="n">${R(c.imp)}</td></tr>
-        <tr><td><b>Total Cobrado do Cliente</b></td><td class="n"><b style="color:#0b5d32">${R(c.venda)}</b></td></tr>
-        <tr><td><b>Resultado Líquido Estimado</b></td><td class="n"><b style="color:#0b5d32">${R(c.res)}</b></td></tr>
-        <tr><td><b>Margem de Lucro Efetiva</b></td><td class="n"><b style="color:${c.min?'#b3261e':'#0b5d32'}">${c.marg.toFixed(1)}%</b></td></tr>
-      </table>
-    `;
-  }
-
-  $('#doc').innerHTML=bar+`<div class="pg">${h}</div>`;
-  $('#doc').style.display='block';
-  $('#doc').scrollTop=0;
-}
-
-function closeDoc(){
-  $('#doc').style.display='none';
-}
-
-load().then(d=>{
-  if(d&&d.cfg){
-    st=d;
+/* INICIALIZAÇÃO */
+loadData().then(d=>{
+  if(d && d.cfg){
+    db=d;
   }
   draw();
 });
