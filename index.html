@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b5d32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Jardim Padrão — App de Orçamentos</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230b5d32'/%3E%3Cpath d='M30 78c0-22 14-31 28-34-12 6-20 14-22 30 8-10 18-14 34-18 4-14 2-22-2-30C46 24 30 34 28 56c0 10 0 16 2 22z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0e1611;--card:#17221b;--tx:#e6f0e9;--mut:#9bb0a2;--br:#2b3b31;--g:#3fa56b;--gt:#06170d;--g2:#1c3125;--gold:#c9a84c;--red:#ff8a80;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=light]{--bg:#f3f7f4;--card:#fff;--tx:#14231a;--mut:#5d6f63;--br:#d6e1d9;--g:#0b5d32;--gt:#fff;--g2:#e1f0e6;--gold:#9a7b2c;--red:#b3261e;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:85px;min-height:100vh}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:linear-gradient(135deg,#07381e,#0b5d32);color:#fff;border-bottom:1px solid rgba(255,255,255,.1);position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img,.brand svg{width:36px;height:36px;border-radius:50%;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.brand h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.3px}
+.brand small{display:block;font-size:11px;opacity:.8;font-weight:400}
+.theme-btn{background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:20px;padding:6px 12px;font-size:12px;cursor:pointer}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--br);padding-bottom:env(safe-area-inset-bottom,0px);z-index:25;box-shadow:0 -4px 16px rgba(0,0,0,.25)}
+nav button{flex:1;padding:12px 4px;border:0;background:none;color:var(--mut);font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:color .2s}
+nav button.on{color:var(--g)}
+nav button span.icon{font-size:17px}
+main{padding:14px;max-width:780px;margin:auto}
+.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+h2{font-size:17px;margin:0 0 10px;color:var(--g);display:flex;align-items:center;gap:8px}
+h3{font-size:14px;margin:12px 0 6px;color:var(--gold)}
+label{display:block;font-size:12px;color:var(--mut);margin:10px 0 3px;font-weight:600}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:14px;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--g)}
+.r{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:480px){.r3{grid-template-columns:1fr}}
+button.b{padding:11px 16px;border:0;border-radius:10px;background:var(--g);color:var(--gt);font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:opacity .2s}
+button.b:active{opacity:.85}
+button.s{background:var(--g2);color:var(--g)}
+button.d{background:none;color:var(--red);border:1px solid var(--red)}
+button.sm{padding:7px 11px;font-size:12px;border-radius:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.mut{color:var(--mut);font-size:13px}
+.item{border-top:1px dashed var(--br);padding-top:12px;margin-top:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}
+.tile{position:relative;padding:12px 6px;border:2px solid var(--br);border-radius:14px;background:var(--bg);color:var(--tx);font-size:12px;text-align:center;cursor:pointer;transition:all .2s}
+.tile i{display:block;font-style:normal;font-size:28px;line-height:1.2;margin-bottom:4px}
+.tile.on{border-color:var(--g);background:var(--g2)}
+.tile.op{box-shadow:0 0 0 2px var(--gold)}
+.tile u{position:absolute;top:4px;right:6px;text-decoration:none;background:var(--g);color:var(--gt);border-radius:10px;padding:1px 6px;font-size:10px;font-weight:700}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{padding:8px 14px;border:1.5px solid var(--br);border-radius:20px;background:var(--bg);color:var(--tx);font-size:13px;cursor:pointer}
+.chip.on{border-color:var(--g);background:var(--g);color:var(--gt);font-weight:700}
+.tot{background:var(--g2);border-radius:12px;padding:12px 14px;margin-top:12px}
+.tot div{display:flex;justify-content:space-between;padding:3px 0;font-size:13px}
+.tot .big{font-size:19px;font-weight:800;color:var(--g);border-top:1px dashed var(--br);margin-top:6px;padding-top:6px}
+.warn{color:var(--red);font-weight:700}
+.fotos{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+.fotos div{min-width:130px;position:relative}
+.fotos img{width:130px;height:95px;object-fit:cover;border-radius:8px;border:1px solid var(--br)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.kpi-card{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:12px;text-align:center}
+.kpi-card small{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.kpi-card b{display:block;font-size:20px;color:var(--g);margin-top:4px}
+#toast{position:fixed;top:65px;right:16px;background:var(--g);color:var(--gt);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,.3);opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.show{opacity:1}
+#doc{position:fixed;inset:0;background:#fff;color:#111;overflow:auto;z-index:100;padding:0 0 50px;display:none}
+#doc .bar{position:sticky;top:0;background:#0b5d32;padding:10px 16px;display:flex;gap:10px;padding-top:calc(10px + env(safe-area-inset-top,0px));box-shadow:0 2px 8px rgba(0,0,0,.2)}
+#doc .pg{max-width:780px;margin:auto;padding:24px;font:13px/1.5 system-ui,sans-serif;color:#111}
+#doc h1{font-size:22px;color:#0b5d32;margin:0}
+#doc h3{color:#0b5d32;border-bottom:2px solid #0b5d32;padding-bottom:4px;margin:20px 0 8px}
+#doc table{width:100%;border-collapse:collapse;margin:10px 0}
+#doc td,#doc th{padding:8px 6px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}
+#doc .n{text-align:right;white-space:nowrap}
+#doc .hd{display:flex;align-items:center;gap:14px;border-bottom:3px solid #0b5d32;padding-bottom:12px}
+#doc .hd img,#doc .hd svg{width:64px;height:64px;border-radius:50%;object-fit:cover}
+#doc .ph{display:inline-block;width:32%;margin:0 1% 8px 0;vertical-align:top;font-size:11px;break-inside:avoid}
+#doc .ph img{width:100%;height:120px;object-fit:cover;border-radius:4px}
+#doc .tt{font-size:18px;font-weight:800;text-align:right;margin-top:14px;color:#0b5d32}
+@media print{
+  #app{display:none!important}
+  #doc{position:static;display:block!important;overflow:visible;background:#fff;color:#000}
+  #doc .bar{display:none}
+  #doc .pg{padding:0}
+}
+</style>
+</head>
+<body>
+<div id="toast">Salvo ✓</div>
+<div id="app">
+  <header id="hd"></header>
+  <main id="m"></main>
+  <nav id="nv"></nav>
+</div>
+<div id="doc"></div>
+<script>
+const LOGO='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#0b5d32"/><path d="M30 78c0-22 14-31 28-34-12 6-20 14-22 30 8-10 18-14 34-18 4-14 2-22-2-30C46 24 30 34 28 56c0 10 0 16 2 22z" fill="#fff"/></svg>';
+const UN=['serv','m²','m','un','h','dia','kg','lote'];
+const SV=[
+  {id:'grama',ic:'🌿',nome:'Grama',un:'m²',perda:5,v:[['Esmeralda',23.33,38],['São Carlos',25,40],['Santo Agostinho',26,42],['Batatais',18.2,32],['Bermuda',24,38]]},
+  {id:'parv',ic:'🌳',nome:'Poda de Árvore',un:'un',v:[['Pequena',250,500],['Média',450,850],['Grande',900,1600]]},
+  {id:'parb',ic:'✂️',nome:'Poda de arbusto / cerca-viva',un:'serv',v:[['Pequeno',160,250],['Médio',250,400],['Grande',400,650]]},
+  {id:'plan',ic:'🌱',nome:'Plantas e mudas',un:'un',v:[['Muda pequena',0,0],['Muda média',0,0],['Arbusto / vaso grande',0,0],['Árvore',0,0]]},
+  {id:'adub',ic:'🧪',nome:'Adubação',un:'m²',v:[['Orgânica',7.52,12],['Mineral',7.52,12]]},
+  {id:'corte',ic:'🌾',nome:'Corte de grama',un:'serv',v:[['Pequeno',120,200],['Médio',180,350],['Grande',350,700]]},
+  {id:'limp',ic:'🧹',nome:'Limpeza de terreno',un:'serv',v:[['Leve',250,400],['Média',300,500],['Pesada',450,900]]},
+  {id:'prep',ic:'🚜',nome:'Preparo do terreno',un:'m²',v:[['Nivelamento',6,10],['Terra vegetal',15,28]]},
+  {id:'irri',ic:'💧',nome:'Irrigação',un:'m²',v:[['Aspersão',45,75],['Gotejamento',40,65]]},
+  {id:'pais',ic:'🌸',nome:'Paisagismo',un:'serv',v:[['Projeto',0,0],['Implantação',0,0]]},
+  {id:'manu',ic:'🔄',nome:'Manutenção periódica',un:'serv',v:[['Pontual',120,240],['Quinzenal',100,180],['Mensal',150,300]]},
+  {id:'outro',ic:'⚙️',nome:'Outro serviço',un:'serv',v:[]}
+];
+const CFG={
+  empresa:'Jardim Padrão',
+  logo:'',
+  tel:'(12) 98228-4727',
+  email:'contato@jardimpadrao.com.br',
+  base:'Bosque do Malacados, Condomínio Recreio, Jacareí - SP',
+  baseLink:'',
+  kmL:10,
+  gas:6.2,
+  fator:1.3,
+  mmin:25,
+  valid:15,
+  pagto:'50% na aprovação e 50% na conclusão do serviço.',
+  prazo:'A combinar após a aprovação.',
+  excl:'Retirada de resíduos volumosos e serviços não descritos nesta proposta.'
+};
+
+let st={v:2,cfg:{...CFG},cat:JSON.parse(JSON.stringify(SV)),bud:[],seq:1};
+let view='home',cur=null,op=null,delId=null;
+
+const $=s=>document.querySelector(s);
+const R=v=>(+v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const N=v=>+v||0;
+const E=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function idb(){
+  return new Promise((r,j)=>{
+    const q=indexedDB.open('jp_orcamentos_v2',1);
+    q.onupgradeneeded=()=>q.result.createObjectStore('kv');
+    q.onsuccess=()=>r(q.result);
+    q.onerror=()=>j(q.error);
+  });
+}
+
+async function load(){
+  try{
+    const d=await idb();
+    return await new Promise(r=>{
+      const q=d.transaction('kv').objectStore('kv').get('st');
+      q.onsuccess=()=>r(q.result);
+      q.onerror=()=>r(null);
+    });
+  }catch(e){return null}
+}
+
+let tm;
+function toast(msg){
+  const t=$('#toast');
+  if(!t)return;
+  t.textContent=msg||'Salvo ✓';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+function save(){
+  clearTimeout(tm);
+  tm=setTimeout(async()=>{
+    try{
+      const d=await idb();
+      d.transaction('kv','readwrite').objectStore('kv').put(JSON.parse(JSON.stringify(st)),'st');
+      toast();
+    }catch(e){}
+  },350);
+}
+
+const logo=()=>st.cfg.logo?`<img src="${st.cfg.logo}">`:LOGO;
+
+function coords(u){
+  u=String(u||'');
+  try{u=decodeURIComponent(u)}catch(e){}
+  const m=u.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/)||u.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)||u.match(/[?&](?:q|ll|query|destination)=(-?\d+\.\d+),\s*(-?\d+\.\d+)/)||u.match(/^\s*(-?\d+\.\d+),\s*(-?\d+\.\d+)\s*$/);
+  return m?[+m[1],+m[2]]:null;
+}
+
+function hav(a,b){
+  const r=x=>x*Math.PI/180,h=Math.sin(r(b[0]-a[0])/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(r(b[1]-a[1])/2)**2;
+  return 12742*Math.asin(Math.sqrt(h));
+}
+
+function kmInfo(b){
+  if(N(b.des.kmM)>0)return{km:N(b.des.kmM),src:'km informado manual'};
+  const a=coords(st.cfg.baseLink),c=coords(b.des.link);
+  if(a&&c)return{km:hav(a,c)*N(st.cfg.fator),src:'estimado (linha reta x '+N(st.cfg.fator)+')'};
+  return{km:0,src:'sem coordenadas — cole o link do Maps ou digite o km'};
+}
+
+function calc(b){
+  const f=b.fin,cfg=st.cfg;
+  let custoI=0,vendaI=0;
+  b.itens.forEach(i=>{
+    custoI+=N(i.qtd)*(1+N(i.perda)/100)*N(i.custo);
+    vendaI+=N(i.qtd)*N(i.preco);
+  });
+  const ki=kmInfo(b);
+  const comb=ki.km*2*N(b.des.viagens)/(N(cfg.kmL)||1)*N(cfg.gas);
+  const extra=N(b.des.extra);
+  const dcost=comb+extra;
+  const rep=b.des.rep==='total'?dcost:b.des.rep==='parcial'?dcost*N(b.des.pct)/100:0;
+  const bruto=vendaI+rep;
+  const desc=bruto*N(f.desc)/100;
+  let venda=bruto-desc;
+  const custo=custoI+dcost;
+  const imp=venda*N(f.imp)/100;
+  const res=venda-custo-imp;
+  const marg=venda?res/venda*100:0;
+  const m=N(f.alvo),i=N(f.imp);
+  const sug=f.metodo==='margem'?(1-m/100-i/100>0?custo/(1-m/100-i/100):0):custo*(1+m/100)/(1-i/100);
+  const fat=vendaI?(venda-rep)/vendaI:1;
+  return{custoI,vendaI,comb,extra,dcost,rep,bruto,desc,venda,custo,imp,res,marg,sug,fat,ki,min:marg<N(cfg.mmin)};
+}
+
+function novo(){
+  return{
+    id:'b'+Date.now(),
+    num:'JP-'+new Date().getFullYear()+'-'+String(st.seq).padStart(3,'0'),
+    status:'rascunho',
+    data:new Date().toISOString().slice(0,10),
+    cli:{nome:'',tel:'',email:''},
+    end:'',
+    proj:'',
+    fotos:[],
+    itens:[],
+    des:{link:'',kmM:'',viagens:1,extra:0,rep:'total',pct:50},
+    fin:{metodo:'margem',alvo:30,desc:0,imp:0,final:''},
+    apres:'itemized',
+    obs:''
+  };
+}
+
+function nav(v){view=v;draw()}
+
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('jp_theme',next);
+}
+
+function draw(){
+  const th=localStorage.getItem('jp_theme')||'dark';
+  document.documentElement.setAttribute('data-theme',th);
+
+  $('#hd').innerHTML=`
+    <div class="brand">
+      ${logo()}
+      <div>
+        <h1>${E(st.cfg.empresa)}</h1>
+        <small>Gestão de Orçamentos & Propostas</small>
+      </div>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()">${th==='light'?'🌙 Escuro':'☀️ Claro'}</button>
+  `;
+
+  const tabs=[
+    ['home','📊','Início'],
+    ['edit','📝','Orçamento'],
+    ['list','📁','Lista'],
+    ['cat','🏷️','Preços'],
+    ['cfg','⚙️','Config']
+  ];
+  $('#nv').innerHTML=tabs.map(t=>`<button class="${t[0]===view?'on':''}" onclick="nav('${t[0]}')"><span class="icon">${t[1]}</span>${t[2]}</button>`).join('');
+
+  let h='';
+  if(view==='home') h=vHome();
+  else if(view==='edit') h=vEdit();
+  else if(view==='list') h=vList();
+  else if(view==='cat') h=vCat();
+  else if(view==='cfg') h=vCfg();
+
+  $('#m').innerHTML=h;
+}
+
+function vHome(){
+  const totalAprov=st.bud.filter(b=>b.status==='aprovado').reduce((s,b)=>s+calc(b).venda,0);
+  const totalEmAberto=st.bud.filter(b=>b.status==='enviado').reduce((s,b)=>s+calc(b).venda,0);
+  const recents=st.bud.slice(0,5);
+
+  return `
+    <div class="kpi">
+      <div class="kpi-card">
+        <small>Aprovados</small>
+        <b>${R(totalAprov)}</b>
+      </div>
+      <div class="kpi-card">
+        <small>Em Aberto</small>
+        <b>${R(totalEmAberto)}</b>
+      </div>
+    </div>
+
+    <div class="card" style="text-align:center;padding:24px 16px">
+      <h2 style="justify-content:center;font-size:20px;color:var(--g)">Novo Orçamento</h2>
+      <p class="mut" style="margin-bottom:16px">Crie uma proposta profissional em minutos com cálculo de margens e custos.</p>
+      <button class="b" style="padding:14px 28px;font-size:16px" onclick="newB()">+ Criar Novo Orçamento</button>
+    </div>
+
+    <div class="card">
+      <h2>Orçamentos Recentes</h2>
+      ${recents.length?recents.map(b=>{
+        const c=calc(b);
+        return `
+          <div class="item" style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <b>${E(b.num)}</b> — ${E(b.cli.nome||'Sem cliente')}<br>
+              <small class="mut">${b.data} • Status: <span style="color:var(--g);font-weight:700">${b.status}</span></small>
+            </div>
+            <div style="text-align:right">
+              <b>${R(c.venda)}</b><br>
+              <button class="b sm s" onclick="open_('${b.id}')">Abrir</button>
+            </div>
+          </div>
+        `;
+      }).join(''):'<p class="mut">Nenhum orçamento cadastrado ainda.</p>'}
+    </div>
+  `;
+}
+
+function newB(){
+  cur=novo();
+  st.seq++;
+  st.bud.unshift(cur);
+  op=null;
+  save();
+  nav('edit');
+}
+
+function open_(id){
+  cur=st.bud.find(b=>b.id===id);
+  op=null;
+  nav('edit');
+}
+
+function dup(id){
+  const orig=st.bud.find(b=>b.id===id);
+  if(!orig)return;
+  const c=JSON.parse(JSON.stringify(orig));
+  c.id='b'+Date.now();
+  c.num='JP-'+new Date().getFullYear()+'-'+String(st.seq++).padStart(3,'0');
+  c.status='rascunho';
+  st.bud.unshift(c);
+  save();
+  draw();
+}
+
+function del(id){
+  if(delId!==id){
+    delId=id;
+    draw();
+    return;
+  }
+  st.bud=st.bud.filter(b=>b.id!==id);
+  if(cur&&cur.id===id)cur=null;
+  delId=null;
+  save();
+  draw();
+}
+
+function vList(){
+  if(!st.bud.length) return '<div class="card"><p class="mut">Nenhum orçamento ainda.</p><button class="b" onclick="newB()">Criar primeiro</button></div>';
+  return `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h2>Todos os Orçamentos (${st.bud.length})</h2>
+        <button class="b sm" onclick="newB()">+ Novo</button>
+      </div>
+      ${st.bud.map(b=>{
+        const c=calc(b);
+        return `
+          <div class="item">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <div>
+                <b style="font-size:15px">${E(b.num)}</b> — ${E(b.cli.nome||'Sem cliente')}<br>
+                <small class="mut">${b.data} • ${E(b.end||'Sem endereço')} • <span style="color:var(--g);font-weight:700">${b.status}</span></small>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:16px;color:var(--g)">${R(c.venda)}</b>
+                <div class="mut" style="font-size:11px">Margem: ${c.marg.toFixed(1)}%</div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:8px">
+              <button class="b sm" onclick="open_('${b.id}')">Editar</button>
+              <button class="b sm s" onclick="cur=st.bud.find(x=>x.id==='${b.id}');showDoc('cli')">Proposta</button>
+              <button class="b sm s" onclick="cur=st.bud.find(x=>x.id==='${b.id}');showDoc('int')">Interno</button>
+              <button class="b sm s" onclick="dup('${b.id}')">Duplicar</button>
+              <button class="b sm d" onclick="del('${b.id}')">${delId===b.id?'Confirmar?':'Excluir'}</button>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function vEdit(){
+  if(!cur){
+    if(st.bud.length) cur=st.bud[0];
+    else return '<div class="card"><p class="mut">Nenhum orçamento selecionado.</p><button class="b" onclick="newB()">Criar novo</button></div>';
+  }
+  const b=cur, c=calc(b);
+
+  return `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>${E(b.num)}</h2>
+        <select style="width:auto;padding:6px 10px" onchange="cur.status=this.value;save();draw()">
+          <option value="rascunho" ${b.status==='rascunho'?'selected':''}>Rascunho</option>
+          <option value="enviado" ${b.status==='enviado'?'selected':''}>Enviado</option>
+          <option value="aprovado" ${b.status==='aprovado'?'selected':''}>Aprovado</option>
+          <option value="recusado" ${b.status==='recusado'?'selected':''}>Recusado</option>
+        </select>
+      </div>
+
+      <div class="r">
+        <div>
+          <label>Data</label>
+          <input type="date" value="${b.data}" onchange="cur.data=this.value;save()">
+        </div>
+        <div>
+          <label>Projeto / Identificação</label>
+          <input type="text" placeholder="Ex: Gramado Fachada" value="${E(b.proj)}" oninput="cur.proj=this.value;save()">
+        </div>
+      </div>
+
+      <h3>Dados do Cliente</h3>
+      <div class="r">
+        <div>
+          <label>Nome do Cliente</label>
+          <input type="text" placeholder="Nome completo" value="${E(b.cli.nome)}" oninput="cur.cli.nome=this.value;save()">
+        </div>
+        <div>
+          <label>WhatsApp / Telefone</label>
+          <input type="tel" placeholder="(12) 99999-9999" value="${E(b.cli.tel)}" oninput="cur.cli.tel=this.value;save()">
+        </div>
+      </div>
+      <label>Endereço da Obra</label>
+      <input type="text" placeholder="Rua, condomínio, cidade" value="${E(b.end)}" oninput="cur.end=this.value;save()">
+    </div>
+
+    <!-- ITENS -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h2>Serviços e Materiais (${b.itens.length})</h2>
+        <button class="b sm s" onclick="op=op?'':1;draw()">${op?'Fechar catálogo':'+ Adicionar do catálogo'}</button>
+      </div>
+
+      ${op?`
+        <div style="background:var(--bg);padding:10px;border-radius:12px;margin-bottom:12px">
+          <div class="grid">
+            ${st.cat.map(cat=>`
+              <div class="tile" onclick="addItemCat('${cat.id}')">
+                <i>${cat.ic}</i>
+                <b>${E(cat.nome)}</b>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `:''}
+
+      ${b.itens.map((it,idx)=>`
+        <div class="item">
+          <div style="display:flex;justify-content:space-between;gap:8px">
+            <input style="font-weight:700" value="${E(it.nome)}" placeholder="Nome do item" oninput="cur.itens[${idx}].nome=this.value;save()">
+            <button class="b sm d" onclick="cur.itens.splice(${idx},1);save();draw()">✕</button>
+          </div>
+          <div class="r3" style="margin-top:6px">
+            <div>
+              <label>Qtd</label>
+              <input type="number" step="any" value="${it.qtd}" oninput="cur.itens[${idx}].qtd=this.value;save();draw()">
+            </div>
+            <div>
+              <label>Unidade</label>
+              <select onchange="cur.itens[${idx}].un=this.value;save()">
+                ${UN.map(u=>`<option value="${u}" ${it.un===u?'selected':''}>${u}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label>Preço Venda Unit.</label>
+              <input type="number" step="any" value="${it.preco}" oninput="cur.itens[${idx}].preco=this.value;save();draw()">
+            </div>
+          </div>
+          <div class="r" style="margin-top:6px">
+            <div>
+              <label>Custo Unit. (interno)</label>
+              <input type="number" step="any" value="${it.custo}" oninput="cur.itens[${idx}].custo=this.value;save();draw()">
+            </div>
+            <div>
+              <label>Perda %</label>
+              <input type="number" step="any" value="${it.perda}" oninput="cur.itens[${idx}].perda=this.value;save();draw()">
+            </div>
+          </div>
+          <label>Descrição / Detalhes</label>
+          <input type="text" placeholder="Ex: Fornecimento e plantio de tapetes..." value="${E(it.desc)}" oninput="cur.itens[${idx}].desc=this.value;save()">
+        </div>
+      `).join('')}
+
+      <div class="row" style="margin-top:12px">
+        <button class="b sm s" onclick="addItemManual()">+ Item Avulso</button>
+      </div>
+    </div>
+
+    <!-- DESLOCAMENTO -->
+    <div class="card">
+      <h2>Deslocamento e Logística</h2>
+      <div class="r">
+        <div>
+          <label>Distância Manual (km ida)</label>
+          <input type="number" step="any" placeholder="Ex: 25" value="${b.des.kmM}" oninput="cur.des.kmM=this.value;save();draw()">
+        </div>
+        <div>
+          <label>Nº de Viagens</label>
+          <input type="number" value="${b.des.viagens}" oninput="cur.des.viagens=this.value;save();draw()">
+        </div>
+      </div>
+      <div class="r" style="margin-top:6px">
+        <div>
+          <label>Repasse do Deslocamento</label>
+          <select onchange="cur.des.rep=this.value;save();draw()">
+            <option value="total" ${b.des.rep==='total'?'selected':''}>Cobrar 100%</option>
+            <option value="parcial" ${b.des.rep==='parcial'?'selected':''}>Cobrar Parcial (%)</option>
+            <option value="nenhum" ${b.des.rep==='nenhum'?'selected':''}>Absorver (não cobrar)</option>
+          </select>
+        </div>
+        <div>
+          <label>Custos Extras (pedágio, etc)</label>
+          <input type="number" step="any" value="${b.des.extra}" oninput="cur.des.extra=this.value;save();draw()">
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMO FINANCEIRO -->
+    <div class="card">
+      <h2>Financeiro e Margem</h2>
+      <div class="r">
+        <div>
+          <label>Desconto (%)</label>
+          <input type="number" step="any" value="${b.fin.desc}" oninput="cur.fin.desc=this.value;save();draw()">
+        </div>
+        <div>
+          <label>Impostos Estimados (%)</label>
+          <input type="number" step="any" value="${b.fin.imp}" oninput="cur.fin.imp=this.value;save();draw()">
+        </div>
+      </div>
+
+      <div class="tot">
+        <div><span>Custo Total Estimado:</span><b>${R(c.custo)}</b></div>
+        <div><span>Deslocamento Cobrado:</span><b>${R(c.rep)}</b></div>
+        <div><span>Desconto:</span><b>- ${R(c.desc)}</b></div>
+        <div><span>Lucro Líquido Estimado:</span><b style="color:var(--g)">${R(c.res)}</b></div>
+        <div><span>Margem de Lucro:</span><b class="${c.min?'warn':''}">${c.marg.toFixed(1)}%</b></div>
+        <div class="big"><span>Total ao Cliente:</span><b>${R(c.venda)}</b></div>
+      </div>
+
+      <div class="row" style="margin-top:16px">
+        <button class="b" onclick="showDoc('cli')">📄 Gerar Proposta do Cliente</button>
+        <button class="b s" onclick="showDoc('int')">🔍 Relatório Interno</button>
+        <button class="b s" onclick="sendWA()">📲 Enviar WhatsApp</button>
+      </div>
+    </div>
+  `;
+}
+
+function addItemCat(catId){
+  const cat=st.cat.find(c=>c.id===catId);
+  if(!cat)return;
+  const opt=cat.v[0]||['Padrão',0,0];
+  cur.itens.push({
+    nome:cat.nome+' — '+opt[0],
+    desc:'',
+    qtd:1,
+    un:cat.un,
+    preco:opt[2],
+    custo:opt[1],
+    perda:cat.perda||0
+  });
+  op=null;
+  save();
+  draw();
+}
+
+function addItemManual(){
+  cur.itens.push({
+    nome:'Novo Serviço',
+    desc:'',
+    qtd:1,
+    un:'serv',
+    preco:0,
+    custo:0,
+    perda:0
+  });
+  save();
+  draw();
+}
+
+function sendWA(){
+  if(!cur)return;
+  const c=calc(cur);
+  const msg=`Olá ${cur.cli.nome||''}! Aqui está o resumo do seu orçamento da *${st.cfg.empresa}*:\n\n`+
+    cur.itens.map(i=>`• *${i.nome}*: ${i.qtd} ${i.un} — ${R(i.qtd*i.preco)}`).join('\n')+
+    (c.rep>0?`\n• *Deslocamento*: ${R(c.rep)}`:'')+
+    `\n\n*Total:* ${R(c.venda)}\n*Condições:* ${st.cfg.pagto}\n*Validade:* ${st.cfg.valid} dias\n\nFicamos à disposição para agendar a visita!`;
+  
+  const tel=(cur.cli.tel||'').replace(/\D/g,'');
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+function vCat(){
+  return `
+    <div class="card">
+      <h2>Catálogo de Preços Base</h2>
+      <p class="mut">Configure os valores padrão de serviços e insumos.</p>
+      ${st.cat.map((cat,i)=>`
+        <div class="item">
+          <b>${cat.ic} ${E(cat.nome)}</b> (${cat.un})
+          <div style="margin-top:6px">
+            ${cat.v.map((sub,si)=>`
+              <div class="r3" style="margin-bottom:4px">
+                <input value="${E(sub[0])}" oninput="st.cat[${i}].v[${si}][0]=this.value;save()">
+                <input type="number" step="any" placeholder="Custo" value="${sub[1]}" oninput="st.cat[${i}].v[${si}][1]=+this.value;save()">
+                <input type="number" step="any" placeholder="Venda" value="${sub[2]}" oninput="st.cat[${i}].v[${si}][2]=+this.value;save()">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function vCfg(){
+  return `
+    <div class="card">
+      <h2>Configurações da Empresa</h2>
+      <label>Nome da Empresa</label>
+      <input value="${E(st.cfg.empresa)}" oninput="st.cfg.empresa=this.value;save()">
+      <div class="r">
+        <div>
+          <label>Telefone / WhatsApp</label>
+          <input value="${E(st.cfg.tel)}" oninput="st.cfg.tel=this.value;save()">
+        </div>
+        <div>
+          <label>E-mail</label>
+          <input value="${E(st.cfg.email)}" oninput="st.cfg.email=this.value;save()">
+        </div>
+      </div>
+      <label>Endereço Base</label>
+      <input value="${E(st.cfg.base)}" oninput="st.cfg.base=this.value;save()">
+      <div class="r3">
+        <div>
+          <label>Consumo (km/L)</label>
+          <input type="number" step="any" value="${st.cfg.kmL}" oninput="st.cfg.kmL=this.value;save()">
+        </div>
+        <div>
+          <label>Preço Combustível (R$/L)</label>
+          <input type="number" step="any" value="${st.cfg.gas}" oninput="st.cfg.gas=this.value;save()">
+        </div>
+        <div>
+          <label>Margem Mínima (%)</label>
+          <input type="number" step="any" value="${st.cfg.mmin}" oninput="st.cfg.mmin=this.value;save()">
+        </div>
+      </div>
+      <label>Condição de Pagamento Padrão</label>
+      <textarea rows="2" oninput="st.cfg.pagto=this.value;save()">${E(st.cfg.pagto)}</textarea>
+      <label>Prazo de Execução Padrão</label>
+      <textarea rows="2" oninput="st.cfg.prazo=this.value;save()">${E(st.cfg.prazo)}</textarea>
+    </div>
+
+    <div class="card">
+      <h2>Backup & Dados</h2>
+      <div class="row">
+        <button class="b s" onclick="exportData()">💾 Baixar Backup JSON</button>
+        <button class="b s" onclick="$('#fileInput').click()">📥 Restaurar Backup</button>
+        <input type="file" id="fileInput" style="display:none" accept=".json" onchange="importData(this)">
+      </div>
+    </div>
+  `;
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(st,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='jardim-padrao-orcamentos-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+}
+
+function importData(inp){
+  const file=inp.files[0];
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(d&&d.cfg){
+        st=d;
+        save();
+        draw();
+        toast('Backup restaurado ✓');
+      }
+    }catch(e){alert('Arquivo inválido')}
+  };
+  r.readAsText(file);
+}
+
+function showDoc(tipo){
+  if(!cur)return;
+  const b=cur, c=calc(b), cfg=st.cfg;
+  const bar=`
+    <div class="bar">
+      <button class="b" style="background:#fff;color:#0b5d32" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+      <button class="b" style="background:#fff;color:#0b5d32" onclick="closeDoc()">✕ Fechar</button>
+    </div>
+  `;
+
+  let h='';
+  if(tipo==='cli'){
+    h=`
+      <div class="hd">
+        ${logo()}
+        <div>
+          <h1>${E(cfg.empresa)}</h1>
+          <div>${E(cfg.tel)} • ${E(cfg.email)}</div>
+        </div>
+      </div>
+      <h2 style="margin-top:20px;color:#0b5d32">Proposta Comercial: ${E(b.num)}</h2>
+      <p>Data: ${b.data} • Validade: ${cfg.valid} dias</p>
+      <h3>Cliente</h3>
+      <p><b>${E(b.cli.nome||'Cliente')}</b><br>${E(b.cli.tel)}<br>Local da Obra: ${E(b.end)}</p>
+      <h3>Serviços Inclusos</h3>
+      <table>
+        <thead><tr><th>Item</th><th class="n">Qtd</th><th class="n">Unitário</th><th class="n">Subtotal</th></tr></thead>
+        <tbody>
+          ${b.itens.map(i=>`
+            <tr>
+              <td><b>${E(i.nome)}</b><br><small style="color:#555">${E(i.desc)}</small></td>
+              <td class="n">${i.qtd} ${i.un}</td>
+              <td class="n">${R(i.preco*c.fat)}</td>
+              <td class="n">${R(i.qtd*i.preco*c.fat)}</td>
+            </tr>
+          `).join('')}
+          ${c.rep>0?`<tr><td><b>Deslocamento e Logística</b></td><td class="n">1</td><td class="n">${R(c.rep)}</td><td class="n">${R(c.rep)}</td></tr>`:''}
+        </tbody>
+      </table>
+      <div class="tt">Valor Total: ${R(c.venda)}</div>
+      ${b.obs?`<h3>Observações</h3><p>${E(b.obs)}</p>`:''}
+      <h3>Condições Comerciais</h3>
+      <p><b>Pagamento:</b> ${E(cfg.pagto)}<br><b>Prazo:</b> ${E(cfg.prazo)}<br><b>Não incluso:</b> ${E(cfg.excl)}</p>
+      <br><br>
+      <p>Assinatura do Cliente: ____________________________________ Data: ___/___/______</p>
+    `;
+  }else{
+    h=`
+      <div class="hd">
+        ${logo()}
+        <div>
+          <h1>${E(cfg.empresa)} — Relatório Interno</h1>
+          <div>${b.num} • Status: ${b.status}</div>
+        </div>
+      </div>
+      <h3>Detalhamento de Custos e Margem</h3>
+      <table>
+        <tr><td>Custo Total Insumos + Equipe</td><td class="n">${R(c.custoI)}</td></tr>
+        <tr><td>Custo Deslocamento (combustível + extras)</td><td class="n">${R(c.dcost)}</td></tr>
+        <tr><td><b>Custo Total da Obra</b></td><td class="n"><b>${R(c.custo)}</b></td></tr>
+        <tr><td>Preço Bruto Sugerido</td><td class="n">${R(c.bruto)}</td></tr>
+        <tr><td>Desconto Aplicado</td><td class="n">- ${R(c.desc)}</td></tr>
+        <tr><td>Impostos Estimados</td><td class="n">${R(c.imp)}</td></tr>
+        <tr><td><b>Total Cobrado do Cliente</b></td><td class="n"><b style="color:#0b5d32">${R(c.venda)}</b></td></tr>
+        <tr><td><b>Resultado Líquido Estimado</b></td><td class="n"><b style="color:#0b5d32">${R(c.res)}</b></td></tr>
+        <tr><td><b>Margem de Lucro Efetiva</b></td><td class="n"><b style="color:${c.min?'#b3261e':'#0b5d32'}">${c.marg.toFixed(1)}%</b></td></tr>
+      </table>
+    `;
+  }
+
+  $('#doc').innerHTML=bar+`<div class="pg">${h}</div>`;
+  $('#doc').style.display='block';
+  $('#doc').scrollTop=0;
+}
+
+function closeDoc(){
+  $('#doc').style.display='none';
+}
+
+load().then(d=>{
+  if(d&&d.cfg){
+    st=d;
+  }
+  draw();
+});
+draw();
+</script>
+</body>
+</html>
